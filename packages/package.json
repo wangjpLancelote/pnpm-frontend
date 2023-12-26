@@ -1,0 +1,30 @@
+{
+  "name": "@5dyl/template-cloud",
+  "private": true,
+  "version": "0.1.0",
+  "description": "template-cloud",
+  "author": "5dyl",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "vite build --mode development",
+    "build:master": "vite build --mode master",
+    "build:release": "vite build --mode release",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "2.3.1",
+    "@vitejs/plugin-legacy": "4.0.4",
+    "@vueup/vue-quill": "1.2.0",
+    "axios": "1.4.0",
+    "disable-devtool": "0.3.6",
+    "echarts": "5.4.3",
+    "element-plus": "2.4.3",
+    "file-saver": "2.0.5",
+    "fuse.js": "6.6.2",
+    "js-cookie": "3.0.5",
+    "jsencrypt": "3.3.2",
+    "nprogress": "0.2.0",
+    "sass": "1.69.5",
+    "vue-cropper": "1.1.1"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "name": "vue-template-ruoyi-cloud",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "preinstall": "node ./scripts/preinstall.js",
+    "postinstall": "husky install",
+    "pre-commit": "lint-staged",
+    "dev": "pnpm pnpm -r --parallel --filter @5dyl/template-cloud run dev",
+    "build_master": "pnpm run -f @5dyl/template-cloud build:master",
+    "build_release": "pnpm run -f @5dyl/template-cloud build:release",
+    "preview": "pnpm run -f @5dyl/template-cloud preview"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "4.5.0",
+    "@vue/compiler-sfc": "3.3.9",
+    "@vueuse/components": "10.1.2",
+    "@vueuse/core": "10.6.1",
+    "pinia": "2.1.7",
+    "pinia-plugin-persist": "1.0.0",
+    "terser": "5.16.8",
+    "unplugin-auto-import": "0.17.1",
+    "unplugin-vue-components": "0.24.1",
+    "vite": "4.3.4",
+    "vite-plugin-html-config": "1.0.11",
+    "vue": "3.3.9",
+    "vue-router": "4.2.5",
+    "vite-plugin-compression": "0.5.1",
+    "vite-plugin-svg-icons": "2.0.1",
+    "unplugin-vue-setup-extend-plus": "1.0.0"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "1.6.0",
+    "@vue/eslint-config-prettier": "8.0.0",
+    "eslint": "8.55.0",
+    "eslint-config-prettier": "8.10.0",
+    "eslint-plugin-import": "2.29.0",
+    "eslint-plugin-prettier": "5.0.1",
+    "eslint-plugin-vue": "9.19.2",
+    "rollup-plugin-visualizer": "5.9.0",
+    "husky": "8.0.2",
+    "lint-staged": "15.2.0",
+    "prettier": "3.1.0"
+  },
+  "packageManager": "pnpm@7.6.0",
+  "engines": {
+    "node": "16.16.0"
+  }
+}
