@@ -8,9 +8,9 @@
     "postinstall": "husky install",
     "pre-commit": "lint-staged",
     "dev": "pnpm pnpm -r --parallel --filter @5dyl/template-cloud run dev",
-    "build_master": "pnpm run -f @5dyl/template-cloud build:master",
-    "build_release": "pnpm run -f @5dyl/template-cloud build:release",
-    "preview": "pnpm run -f @5dyl/template-cloud preview"
+    "build_master": "pnpm run -r --parallel --filter @5dyl/template-cloud build:master",
+    "build_release": "pnpm run -r --parallel --filter @5dyl/template-cloud build:release",
+    "preview": "pnpm run -r --parallel --filter @5dyl/template-cloud preview"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "4.5.0",
