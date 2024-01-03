@@ -24,7 +24,7 @@ export default defineConfig(({ mode, command }) => {
       host: true,
       open: true,
       proxy: {
-        '/dev-api': {
+        [env.VITE_APP_BASE_API]: {
           target: 'http://localhost:8080',
           changeOrigin: true,
           rewrite: (p) => p.replace(/^\/dev-api/, ''),
