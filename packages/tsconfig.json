@@ -24,6 +24,6 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/FormComp/src/form-render.tsx", "src/router/index.js"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/FormComp/src/form-render.tsx", "src/utils/jsencrypt.js"],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }

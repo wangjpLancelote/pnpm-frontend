@@ -12,6 +12,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import directive from './directive' // directive
+import animate from './animate'
 
 // 注册指令
 import plugins from './plugins' // plugins
@@ -57,6 +58,8 @@ app.config.globalProperties.handleTree = handleTree
 app.config.globalProperties.addDateRange = addDateRange
 app.config.globalProperties.selectDictLabel = selectDictLabel
 app.config.globalProperties.selectDictLabels = selectDictLabels
+app.config.globalProperties.animate = animate;
+
 
 // 全局组件挂载
 app.component('DictTag', DictTag)
@@ -68,8 +71,8 @@ app.component('ImagePreview', ImagePreview)
 app.component('RightToolbar', RightToolbar)
 app.component('Editor', Editor)
 
-app.use(router)
-app.use(store)
+app.use(router as any)
+app.use(store as any)
 app.use(plugins)
 app.use(elementIcons)
 app.component('SvgIcon', SvgIcon)
@@ -77,7 +80,7 @@ app.component('SvgIcon', SvgIcon)
 directive(app)
 
 // 使用element-plus 并且设置全局的大小
-app.use(ElementPlus, {
+app.use(ElementPlus as any, {
   locale: locale,
   // 支持 large、default、small
   size: Cookies.get('size') || 'default',

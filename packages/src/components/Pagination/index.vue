@@ -17,6 +17,7 @@
 <script lang="ts">
 import { scrollTo } from "@/utils/scroll-to";
 import { PropType } from "vue";
+import { defineProps, defineEmits } from 'vue';
 
 export default {
   name: "Pagination"

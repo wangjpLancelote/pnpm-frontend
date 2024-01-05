@@ -13,7 +13,7 @@ const privateKey =
   'MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAIyqW3bHPCvt+7Als7rduZFyGj+9ubQYJLinADOhdiawkGulwZLVtjFimMM3EWCXxJbsfRJaq9LFuml3bMRHIyvgzurfN5+4RoZm4b1xFA4QPGOVNuTfQXI60O8Dd1IH1noviE7hlQeJ2so0rKD73+WKBxy5msxNS/Y+XL5kWvYZAgMBAAECgYAIkOtG/XUNm82C+ZjLXWtKjy9ICG7Bp+K8l/bsLf369y+kTpDON1OECGQTJ0xYnIVtR3OKZZknGcFzYMFv5oEeuMLu5ueO2t2NlKZjr6Pp7jfMuQM+S5Y6+BItetMrBlWjEXk/WpPELkqVFTYGNkUNpdpVHHgxCZKyhHdJfVRjLQJBAMvn1WY4Y6/LwhP4WP3jhlKwd6ahgWWBFiApyFhFU4OM9gOX29PAgIQmuMBlP4EjAKC2OWAn687WZM8eTM8kju8CQQCwmmOL9EgAPi+f0pl+00q7D+83IgmOX0YVUc3DuJQiGpnYZzEPjeuIYW0hNH7GSGnTDyR39kaw5Mne/vGTS8t3AkBTiEYD+lXcTrzTMYpDeFIuzdw2hzNbQeauhm9sufncioK+Nhf4R4Renv5Q0ymQ3aYEMKKQocoYkfv6XY9ZzMBBAkAsxngGu+Clbx7T/qk8JoYD935HFDIoDq/OJ/drcBjerK/k1gTyVKEq6sioao7Z5vItuOEeKSqzHs6v4yOMnOLxAkAGhhszHJnCkUzsa+mJ4jXOZliLCnfMph0swkSZKGpgGS6w+BWW0tx3VyGcUQ0RTrqIvJk1yVitDm4UyTLiH8ai';
 
 // 加密
-export function encrypt(txt: string, _this: object) {
+export function encrypt(txt) {
   //const publicKey = _this.$store.getters.rsaPublicKey;
   if (publicKey) {
     const encryptor = new JSEncrypt();
@@ -24,24 +24,19 @@ export function encrypt(txt: string, _this: object) {
 }
 
 // 解密
-export function decrypt(txt: string, _this: object) {
+export function decrypt(txt) {
   //const privateKey = _this.$store.getters.rsaPrivateKey;
   if (privateKey) {
     const encryptor = new JSEncrypt();
     encryptor.setPrivateKey(privateKey); // 设置私钥
-    return encryptor.decryptLong2(txt); // 对数据进行解密
+    return encryptor.decryptLong(txt);
   }
   return '';
 }
 
 //分段加解密
 //https://www.cnblogs.com/WQLong/p/11282596.html
-Object.setPrototypeOf(JSEncrypt, {
-  a: function () {
-    console.log(11);
-  }
-});
-JSEncrypt.prototype.encryptLong = function (d: string) {
+JSEncrypt.prototype.encryptLong = function (d) {
   const k = this.key;
   const maxLength = ((k.n.bitLength() + 7) >> 3) - 11;
 
@@ -58,17 +53,15 @@ JSEncrypt.prototype.encryptLong = function (d: string) {
       return hex2b64(ct);
     }
     const t = k.encrypt(d);
-    const y = hex2b64(t);
-    return y;
+    return hex2b64(t);
   } catch (ex) {
     return false;
   }
 };
 
-JSEncrypt.prototype.encryptLong2 = function (string: string) {
+JSEncrypt.prototype.encryptLong2 = function (string) {
   const k = this.getKey();
   try {
-    const lt = '';
     let ct = '';
     //RSA每次加密117bytes，需要辅助方法判断字符串截取位置
     //1.获取字符串截取点
@@ -89,7 +82,7 @@ JSEncrypt.prototype.encryptLong2 = function (string: string) {
       } else {
         byteNo += 1;
       }
-      if (byteNo % 117 >= 114 || byteNo % 117 == 0) {
+      if (byteNo % 117 >= 114 || byteNo % 117 === 0) {
         if (byteNo - temp >= 114) {
           bytes.push(i);
           temp = byteNo;
@@ -100,7 +93,7 @@ JSEncrypt.prototype.encryptLong2 = function (string: string) {
     if (bytes.length > 1) {
       for (let i = 0; i < bytes.length - 1; i++) {
         let str;
-        if (i == 0) {
+        if (i === 0) {
           str = string.substring(0, bytes[i + 1] + 1);
         } else {
           str = string.substring(bytes[i] + 1, bytes[i + 1] + 1);
@@ -108,30 +101,26 @@ JSEncrypt.prototype.encryptLong2 = function (string: string) {
         const t1 = k.encrypt(str);
         ct += t1;
       }
-      if (bytes[bytes.length - 1] != string.length - 1) {
+      if (bytes[bytes.length - 1] !== string.length - 1) {
         const lastStr = string.substring(bytes[bytes.length - 1] + 1);
         ct += k.encrypt(lastStr);
       }
       return hex2b64(ct);
     }
     const t = k.encrypt(string);
-    const y = hex2b64(t);
-    return y;
+    return hex2b64(t);
   } catch (ex) {
     return false;
   }
 };
 
-JSEncrypt.prototype.decryptLong = function (string: string) {
-  const k = this.getKey();
+JSEncrypt.prototype.decryptLong = function (string) {
+  const k = this.key;
   const maxLength = (k.n.bitLength() + 7) >> 3;
   //let maxLength = 128;
   try {
-    const str = b64tohex(string);
+    const str = base64ToHex(string);
     //let b=hex2Bytes(str);
-
-    const inputLen = str.length;
-
     let ct = '';
     if (str.length > maxLength) {
       const lt = str.match(/.{1,256}/g);
@@ -141,15 +130,14 @@ JSEncrypt.prototype.decryptLong = function (string: string) {
       });
       return ct;
     }
-    const y = k.decrypt(b64tohex(string));
-    return y;
+    return k.decrypt(base64ToHex(string));
   } catch (ex) {
     console.log(ex);
     return false;
   }
 };
 
-JSEncrypt.prototype.decryptLong2 = function (string: string) {
+JSEncrypt.prototype.decryptLong2 = function (string) {
   const k = this.getKey();
   // let maxLength = ((k.n.bitLength()+7)>>3);
   const MAX_DECRYPT_BLOCK = 128;
@@ -158,7 +146,7 @@ JSEncrypt.prototype.decryptLong2 = function (string: string) {
     let t1;
     let bufTmp;
     let hexTmp;
-    const str = b64tohex(string);
+    const str = base64ToHex(string);
     const buf = hexToBytes(str);
     const inputLen = buf.length;
     //开始长度
@@ -192,7 +180,7 @@ JSEncrypt.prototype.decryptLong2 = function (string: string) {
 const b64map = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 const b64pad = '=';
 
-function hex2b64(h: string) {
+function hex2b64(h) {
   let i;
   let c;
   let ret = '';
@@ -200,10 +188,10 @@ function hex2b64(h: string) {
     c = parseInt(h.substring(i, i + 3), 16);
     ret += b64map.charAt(c >> 6) + b64map.charAt(c & 63);
   }
-  if (i + 1 == h.length) {
+  if (i + 1 === h.length) {
     c = parseInt(h.substring(i, i + 1), 16);
     ret += b64map.charAt(c << 2);
-  } else if (i + 2 == h.length) {
+  } else if (i + 2 === h.length) {
     c = parseInt(h.substring(i, i + 2), 16);
     ret += b64map.charAt(c >> 2) + b64map.charAt((c & 3) << 4);
   }
@@ -211,13 +199,13 @@ function hex2b64(h: string) {
   return ret;
 }
 
-function hexToBytes(hex: string) {
+function hexToBytes(hex) {
   const bytes = [];
-  for (let c = 0; c < hex.length; c += 2) bytes.push(parseInt(hex.substr(c, 2), 16));
+  for (let c = 0; c < hex.length; c += 2) bytes.push(parseInt(hex.substring(c, 2), 16));
   return bytes;
 }
 
-function bytesToHex(bytes: any) {
+function bytesToHex(bytes) {
   const hex = [];
   for (let i = 0; i < bytes.length; i++) {
     hex.push((bytes[i] >>> 4).toString(16));
@@ -226,7 +214,7 @@ function bytesToHex(bytes: any) {
   return hex.join('');
 }
 
-function b64tohex(str: string) {
+function base64ToHex(str) {
   const hex = [],
     bin = atob(str.replace(/[ \r\n]+$/, ''));
   for (let i = 0; i < bin.length; ++i) {
@@ -235,14 +223,4 @@ function b64tohex(str: string) {
     hex[hex.length] = tmp;
   }
   return hex.join('');
-}
-
-function addPreZero(num: number, length: number) {
-  let t = (num + '').length,
-    s = '';
-  for (let i = 0; i < length - t; i++) {
-    s += '0';
-  }
-
-  return s + num;
 }
