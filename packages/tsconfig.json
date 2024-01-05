@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "useDefineForClassFields": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "jsx": "preserve",
+    "suppressImplicitAnyIndexErrors":true,
+    "allowImportingTsExtensions":true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "allowJs": true,
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["vite/client","unplugin-vue-define-options/macros-global"],
+    "skipLibCheck": true,
+    // 允许默认导入
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/FormComp/src/form-render.tsx"],
+  "exclude": ["node_modules", "dist", "**/*.js"]
+}
