@@ -45,8 +45,8 @@ export const addClient = (data: ClientForm) => {
  */
 export const updateClient = (data: ClientForm) => {
   return request({
-    url: '/system/client',
-    method: 'put',
+    url: '/system/client/edit',
+    method: 'post',
     data: data
   });
 };
@@ -57,8 +57,8 @@ export const updateClient = (data: ClientForm) => {
  */
 export const delClient = (id: string | number | Array<string | number>) => {
   return request({
-    url: '/system/client/' + id,
-    method: 'delete'
+    url: '/system/client/remove/' + id,
+    method: 'post'
   });
 };
 
@@ -73,8 +73,8 @@ export function changeStatus(id: number | string, status: string) {
     status
   };
   return request({
-    url: '/system/client/changeStatus',
-    method: 'put',
+    url: '/system/client/changeStatus/edit',
+    method: 'post',
     data: data
   });
 }

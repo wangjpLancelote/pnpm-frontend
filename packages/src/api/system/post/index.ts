@@ -31,8 +31,8 @@ export function addPost(data: PostForm) {
 // 修改岗位
 export function updatePost(data: PostForm) {
   return request({
-    url: '/system/post',
-    method: 'put',
+    url: '/system/post/edit',
+    method: 'post',
     data: data
   });
 }
@@ -40,7 +40,7 @@ export function updatePost(data: PostForm) {
 // 删除岗位
 export function delPost(postId: string | number | (string | number)[]) {
   return request({
-    url: '/system/post/' + postId,
-    method: 'delete'
+    url: '/system/post/remove/' + postId,
+    method: 'post'
   });
 }

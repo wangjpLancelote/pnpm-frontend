@@ -31,8 +31,8 @@ export function addTenant(data: TenantForm) {
 // 修改租户
 export function updateTenant(data: TenantForm) {
   return request({
-    url: '/system/tenant',
-    method: 'put',
+    url: '/system/tenant/edit',
+    method: 'post',
     data: data
   });
 }
@@ -45,8 +45,8 @@ export function changeTenantStatus(id: string | number, tenantId: string | numbe
     status
   };
   return request({
-    url: '/system/tenant/changeStatus',
-    method: 'put',
+    url: '/system/tenant/changeStatus/edit',
+    method: 'post',
     data: data
   });
 }
@@ -54,8 +54,8 @@ export function changeTenantStatus(id: string | number, tenantId: string | numbe
 // 删除租户
 export function delTenant(id: string | number | Array<string | number>) {
   return request({
-    url: '/system/tenant/' + id,
-    method: 'delete'
+    url: '/system/tenant/remove/' + id,
+    method: 'post'
   });
 }
 

@@ -31,8 +31,8 @@ export function addType(data: DictTypeForm) {
 // 修改字典类型
 export function updateType(data: DictTypeForm) {
   return request({
-    url: '/system/dict/type',
-    method: 'put',
+    url: '/system/dict/type/edit',
+    method: 'post',
     data: data
   });
 }
@@ -40,8 +40,8 @@ export function updateType(data: DictTypeForm) {
 // 删除字典类型
 export function delType(dictId: string | number | Array<string | number>) {
   return request({
-    url: '/system/dict/type/' + dictId,
-    method: 'delete'
+    url: '/system/dict/type/remove/' + dictId,
+    method: 'post'
   });
 }
 
@@ -49,7 +49,7 @@ export function delType(dictId: string | number | Array<string | number>) {
 export function refreshCache() {
   return request({
     url: '/system/dict/type/refreshCache',
-    method: 'delete'
+    method: 'post'
   });
 }
 
