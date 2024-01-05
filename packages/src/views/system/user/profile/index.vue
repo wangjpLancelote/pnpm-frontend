@@ -1,16 +1,16 @@
 <template>
-  <div class="app-container">
+  <div class="p-2">
     <el-row :gutter="20">
       <el-col :span="6" :xs="24">
         <el-card class="box-card">
-          <template #header>
+          <template v-slot:header>
             <div class="clearfix">
               <span>个人信息</span>
             </div>
           </template>
           <div>
             <div class="text-center">
-              <userAvatar />
+              <userAvatar :user="state.user" />
             </div>
             <ul class="list-group list-group-striped">
               <li class="list-group-item">
@@ -27,7 +27,7 @@
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="tree" />所属部门
-                <div v-if="state.user.dept" class="pull-right">{{ state.user.dept.deptName }} / {{ state.postGroup }}</div>
+                <div class="pull-right" v-if="state.user.dept">{{ state.user.dept.deptName }} / {{ state.postGroup }}</div>
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="peoples" />所属角色
@@ -43,17 +43,20 @@
       </el-col>
       <el-col :span="18" :xs="24">
         <el-card>
-          <template #header>
+          <template v-slot:header>
             <div class="clearfix">
               <span>基本资料</span>
             </div>
           </template>
           <el-tabs v-model="activeTab">
             <el-tab-pane label="基本资料" name="userinfo">
-              <userInfo :user="state.user" />
+              <userInfo :user="userForm" />
             </el-tab-pane>
             <el-tab-pane label="修改密码" name="resetPwd">
               <resetPwd />
+            </el-tab-pane>
+            <el-tab-pane label="第三方应用" name="thirdParty">
+              <thirdParty :auths="state.auths" />
             </el-tab-pane>
           </el-tabs>
         </el-card>
@@ -62,26 +65,39 @@
   </div>
 </template>
 
-<script setup name="Profile">
-import userAvatar from './userAvatar'
-import userInfo from './userInfo'
-import resetPwd from './resetPwd'
-import { getUserProfile } from '@/api/system/user'
+<script setup name="Profile" lang="ts">
+import userAvatar from "./userAvatar.vue";
+import userInfo from "./userInfo.vue";
+import resetPwd from "./resetPwd.vue";
+import thirdParty from "./thirdParty.vue";
+import { getAuthList } from "@/api/system/social/auth";
+import { getUserProfile } from "@/api/system/user";
 
-const activeTab = ref('userinfo')
-const state = reactive({
-  user: {},
-  roleGroup: {},
-  postGroup: {},
+const activeTab = ref("userinfo");
+const state = ref<{ user: any; roleGroup: string;  postGroup: string; auths:any[]}>({
+    user: {},
+    roleGroup: '',
+    postGroup: '',
+    auths: [],
+});
+
+const userForm = ref({});
+
+const getUser = async () => {
+    const res = await getUserProfile();
+    state.value.user = res.data.user;
+    userForm.value = { ...res.data.user }
+    state.value.roleGroup = res.data.roleGroup;
+    state.value.postGroup = res.data.postGroup;
+};
+
+const getAuths = async () => {
+    const res = await getAuthList();
+    state.value.auths = res.data;
+};
+
+onMounted(() => {
+    getUser();
+    getAuths();
 })
-
-function getUser() {
-  getUserProfile().then((response) => {
-    state.user = response.data
-    state.roleGroup = response.roleGroup
-    state.postGroup = response.postGroup
-  })
-}
-
-getUser()
 </script>

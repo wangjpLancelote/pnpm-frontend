@@ -4,33 +4,27 @@
   </svg>
 </template>
 
-<script>
-export default defineComponent({
-  props: {
+<script setup lang="ts">
+const props = defineProps({
     iconClass: {
-      type: String,
-      required: true,
+        type: String,
+        required: true
     },
     className: {
-      type: String,
-      default: '',
+        type: String,
+        default: ''
     },
     color: {
-      type: String,
-      default: '',
+        type: String,
+        default: ''
     },
-  },
-  setup(props) {
-    return {
-      iconName: computed(() => `#icon-${props.iconClass}`),
-      svgClass: computed(() => {
-        if (props.className) {
-          return `svg-icon ${props.className}`
-        }
-        return 'svg-icon'
-      }),
+})
+const iconName =  computed(() => `#icon-${props.iconClass}`);
+const svgClass = computed(() => {
+    if (props.className) {
+        return `svg-icon ${props.className}`
     }
-  },
+    return 'svg-icon'
 })
 </script>
 

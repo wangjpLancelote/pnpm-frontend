@@ -1,11 +1,5 @@
 <template>
-  <el-image
-    :src="`${realSrc}`"
-    fit="cover"
-    :style="`width:${realWidth};height:${realHeight};`"
-    :preview-src-list="realSrcList"
-    preview-teleported
-  >
+  <el-image :src="`${realSrc}`" fit="cover" :style="`width:${realWidth};height:${realHeight};`" :preview-src-list="realSrcList" preview-teleported>
     <template #error>
       <div class="image-slot">
         <el-icon><picture-filled /></el-icon>
@@ -14,45 +8,49 @@
   </el-image>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
-  src: {
-    type: String,
-    default: '',
-  },
-  width: {
-    type: [Number, String],
-    default: '',
-  },
-  height: {
-    type: [Number, String],
-    default: '',
-  },
-})
+    src: {
+        type: String,
+        default: ""
+    },
+    width: {
+        type: [Number, String],
+        default: ""
+    },
+    height: {
+        type: [Number, String],
+        default: ""
+    }
+});
 
 const realSrc = computed(() => {
-  if (!props.src) {
-    return
-  }
-  let real_src = props.src.split(',')[0]
-  return real_src
-})
+    if (!props.src) {
+        return;
+    }
+    let real_src = props.src.split(",")[0];
+    return real_src;
+});
 
 const realSrcList = computed(() => {
-  if (!props.src) {
-    return
-  }
-  let real_src_list = props.src.split(',')
-  let srcList = []
-  real_src_list.forEach((item) => {
-    return srcList.push(item)
-  })
-  return srcList
-})
+    if (!props.src) {
+        return;
+    }
+    let real_src_list = props.src.split(",");
+    let srcList:string[] = [];
+    real_src_list.forEach(item => {
+        return srcList.push(item);
+    });
+    return srcList;
+});
 
-const realWidth = computed(() => (typeof props.width == 'string' ? props.width : `${props.width}px`))
+const realWidth = computed(() =>
+    typeof props.width == "string" ? props.width : `${props.width}px`
+);
 
-const realHeight = computed(() => (typeof props.height == 'string' ? props.height : `${props.height}px`))
+const realHeight = computed(() =>
+    typeof props.height == "string" ? props.height : `${props.height}px`
+);
 </script>
 
 <style lang="scss" scoped>

@@ -1,104 +1,108 @@
 <template>
-  <div class="icon-body">
-    <el-input v-model="iconName" class="icon-search" clearable placeholder="请输入图标名称" @clear="filterIcons" @input="filterIcons">
-      <template #suffix><i class="el-icon-search el-input__icon" /></template>
+  <div class="relative" :style="{ width: width }">
+    <el-input v-model="modelValue" readonly @click="visible = !visible" placeholder="点击选择图标">
+      <template #prepend>
+        <svg-icon :icon-class="modelValue as string" />
+      </template>
     </el-input>
-    <div class="icon-list">
-      <div class="list-container">
-        <div v-for="(item, index) in iconList" :key="index" class="icon-item-wrapper" @click="selectedIcon(item)">
-          <div :class="['icon-item', { active: activeIcon === item }]">
-            <svg-icon :icon-class="item" class-name="icon" style="height: 25px; width: 16px" />
-            <span>{{ item }}</span>
-          </div>
+
+    <el-popover shadow="none" :visible="visible" placement="bottom-end" trigger="click" :width="450">
+      <template #reference>
+        <div @click="visible = !visible" class="cursor-pointer text-[#999] absolute right-[10px] top-0 height-[32px] leading-[32px]">
+          <i-ep-caret-top v-show="visible"></i-ep-caret-top>
+          <i-ep-caret-bottom v-show="!visible"></i-ep-caret-bottom>
         </div>
-      </div>
-    </div>
+      </template>
+
+      <el-input class="p-2" v-model="filterValue" placeholder="搜索图标" clearable @input="filterIcons" />
+
+      <el-scrollbar height="w-[200px]">
+        <ul class="icon-list">
+          <el-tooltip v-for="(iconName, index) in iconNames" :key="index" :content="iconName" placement="bottom" effect="light">
+            <li :class="['icon-item', {active: modelValue == iconName}]" @click="selectedIcon(iconName)">
+              <svg-icon color="var(--el-text-color-regular)" :icon-class="iconName" />
+            </li>
+          </el-tooltip>
+        </ul>
+      </el-scrollbar>
+    </el-popover>
   </div>
 </template>
 
-<script setup>
-import icons from './requireIcons'
+<script setup lang="ts">
+import icons from '@/components/IconSelect/requireIcons';
 
 const props = defineProps({
-  activeIcon: {
+  modelValue: {
     type: String,
+    require: true
   },
-})
+  width: {
+    type: String,
+    require: false,
+    default: '400px'
+  }
+});
 
-const iconName = ref('')
-const iconList = ref(icons)
-const emit = defineEmits(['selected'])
+const emit = defineEmits(['update:modelValue']);
+const visible = ref(false);
+const { modelValue, width } = toRefs(props);
+const iconNames = ref<string[]>(icons);
 
-function filterIcons() {
-  iconList.value = icons
-  if (iconName.value) {
-    iconList.value = icons.filter((item) => item.indexOf(iconName.value) !== -1)
+const filterValue = ref('');
+
+/**
+ * 筛选图标
+ */
+const filterIcons = () => {
+  if (filterValue.value) {
+    iconNames.value = icons.filter(iconName =>
+      iconName.includes(filterValue.value)
+    );
+  } else {
+    iconNames.value = icons;
   }
 }
-
-function selectedIcon(name) {
-  emit('selected', name)
-  document.body.click()
+/**
+ * 选择图标
+ * @param iconName 选择的图标名称
+ */
+const selectedIcon = (iconName: string) => {
+  emit('update:modelValue', iconName);
+  visible.value = false;
 }
-
-function reset() {
-  iconName.value = ''
-  iconList.value = icons
-}
-
-defineExpose({
-  reset,
-})
 </script>
 
-<style lang="scss" scoped>
-.icon-body {
-  width: 100%;
-  padding: 10px;
-  .icon-search {
-    position: relative;
-    margin-bottom: 5px;
-  }
-  .icon-list {
-    height: 200px;
-    overflow: auto;
-    .list-container {
-      display: flex;
-      flex-wrap: wrap;
-      .icon-item-wrapper {
-        width: calc(100% / 3);
-        height: 25px;
-        line-height: 25px;
-        cursor: pointer;
-        display: flex;
-        .icon-item {
-          display: flex;
-          max-width: 100%;
-          height: 100%;
-          padding: 0 5px;
-          &:hover {
-            background: #ececec;
-            border-radius: 5px;
-          }
-          .icon {
-            flex-shrink: 0;
-          }
-          span {
-            display: inline-block;
-            vertical-align: -0.15em;
-            fill: currentColor;
-            padding-left: 2px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-        .icon-item.active {
-          background: #ececec;
-          border-radius: 5px;
-        }
-      }
+<style scoped lang="scss">
+.el-divider--horizontal {
+  margin: 10px auto !important;
+}
+.icon-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 10px;
+  margin-top: 10px;
+
+  .icon-item {
+    cursor: pointer;
+    width: 10%;
+    margin: 0 10px 10px 0;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    &:hover {
+      border-color: var(--el-color-primary);
+      color: var(--el-color-primary);
+      transition: all 0.2s;
+      transform: scaleX(1.1);
     }
   }
+  .active {
+      border-color: var(--el-color-primary);
+      color: var(--el-color-primary);
+    }
 }
 </style>

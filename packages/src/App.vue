@@ -1,28 +1,35 @@
 <template>
-  <router-view />
+  <el-config-provider :locale="appStore.locale" :size="size">
+    <router-view />
+  </el-config-provider>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import useSettingsStore from '@/store/modules/settings'
 import { handleThemeStyle } from '@/utils/theme'
 import { ElMessageBox } from 'element-plus'
 import { webUpdater } from './plugins/webUpdater.js'
+import useAppStore from './store/modules/app'
+
+const appStore = useAppStore();
+const size = computed(() => appStore.size as any);
+
 
 onMounted(() => {
   nextTick(() => {
-    // ³õÊ¼»¯Ö÷ÌâÑùÊ½
+    // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½
     handleThemeStyle(useSettingsStore().theme)
   })
 })
-// ´úÂë¸üÐÂÍ¨Öª¸üÐÂ
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¨Öªï¿½ï¿½ï¿½ï¿½
 const up = new webUpdater()
 let hasDialogModel = false
 up.on('update', () => {
   if (!sessionStorage.getItem('NEEDUPDTE') && !hasDialogModel) {
     hasDialogModel = true
-    ElMessageBox.confirm('ÏµÍ³ÒÑ¸üÐÂ,ÐèÒªË¢ÐÂÒ³ÃæÖØÐÂ¼ÓÔØÊý¾Ý', 'ÌáÊ¾', {
-      confirmButtonText: 'Ë¢ÐÂ',
-      cancelButtonText: 'È¡Ïû',
+    ElMessageBox.confirm('ÏµÍ³ï¿½Ñ¸ï¿½ï¿½ï¿½,ï¿½ï¿½ÒªË¢ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½Ê¾', {
+      confirmButtonText: 'Ë¢ï¿½ï¿½',
+      cancelButtonText: 'È¡ï¿½ï¿½',
       center: true,
     })
       .then(() => {
@@ -31,6 +38,7 @@ up.on('update', () => {
       })
       .catch(() => {
         hasDialogModel = false
+        //@ts-ignore
         sessionStorage.setItem('NEEDUPDTE', true)
       })
   }

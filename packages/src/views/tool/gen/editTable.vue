@@ -35,22 +35,22 @@
 
           <el-table-column label="插入" min-width="5%">
             <template #default="scope">
-              <el-checkbox v-model="scope.row.isInsert" true-label="1" false-label="0"></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isInsert"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column label="编辑" min-width="5%">
             <template #default="scope">
-              <el-checkbox v-model="scope.row.isEdit" true-label="1" false-label="0"></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isEdit"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column label="列表" min-width="5%">
             <template #default="scope">
-              <el-checkbox v-model="scope.row.isList" true-label="1" false-label="0"></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isList"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column label="查询" min-width="5%">
             <template #default="scope">
-              <el-checkbox v-model="scope.row.isQuery" true-label="1" false-label="0"></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isQuery"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column label="查询方式" min-width="10%">
@@ -59,9 +59,9 @@
                 <el-option label="=" value="EQ" />
                 <el-option label="!=" value="NE" />
                 <el-option label=">" value="GT" />
-                <el-option label=">=" value="GTE" />
+                <el-option label=">=" value="GE" />
                 <el-option label="<" value="LT" />
-                <el-option label="<=" value="LTE" />
+                <el-option label="<=" value="LE" />
                 <el-option label="LIKE" value="LIKE" />
                 <el-option label="BETWEEN" value="BETWEEN" />
               </el-select>
@@ -69,7 +69,7 @@
           </el-table-column>
           <el-table-column label="必填" min-width="5%">
             <template #default="scope">
-              <el-checkbox v-model="scope.row.isRequired" true-label="1" false-label="0"></el-checkbox>
+              <el-checkbox true-label="1" false-label="0" v-model="scope.row.isRequired"></el-checkbox>
             </template>
           </el-table-column>
           <el-table-column label="显示类型" min-width="12%">
@@ -104,7 +104,7 @@
       </el-tab-pane>
     </el-tabs>
     <el-form label-width="100px">
-      <div style="text-align: center; margin-left: -100px; margin-top: 10px">
+      <div style="text-align: center;margin-left:-100px;margin-top:10px;">
         <el-button type="primary" @click="submitForm()">提交</el-button>
         <el-button @click="close()">返回</el-button>
       </div>
@@ -112,73 +112,77 @@
   </el-card>
 </template>
 
-<script setup name="GenEdit">
-import { getGenTable, updateGenTable } from '@/api/tool/gen'
-import { optionselect as getDictOptionselect } from '@/api/system/dict/type'
-import basicInfoForm from './basicInfoForm'
-import genInfoForm from './genInfoForm'
+<script setup name="GenEdit" lang="ts">
+import { getGenTable, updateGenTable } from '@/api/tool/gen';
+import { DbColumnVO, DbTableVO } from '@/api/tool/gen/types';
+import { optionselect as getDictOptionselect } from '@/api/system/dict/type';
+import { DictTypeVO } from '@/api/system/dict/type/types';
+import basicInfoForm from './basicInfoForm.vue';
+import genInfoForm from "./genInfoForm.vue";
+import { ComponentInternalInstance } from "vue";
 
-const route = useRoute()
-const { proxy } = getCurrentInstance()
+const route = useRoute();
+const { proxy } = getCurrentInstance() as ComponentInternalInstance;
 
-const activeName = ref('columnInfo')
-const tableHeight = ref(document.documentElement.scrollHeight - 245 + 'px')
-const tables = ref([])
-const columns = ref([])
-const dictOptions = ref([])
-const info = ref({})
+const activeName = ref('columnInfo');
+const tableHeight = ref(document.documentElement.scrollHeight - 245 + 'px');
+const tables = ref<DbTableVO[]>([]);
+const columns = ref<DbColumnVO[]>([]);
+const dictOptions = ref<DictTypeVO[]>([]);
+const info = ref<Partial<DbTableVO>>({});
+
+const basicInfo = ref(basicInfoForm);
+const genInfo = ref(genInfoForm);
 
 /** 提交按钮 */
-function submitForm() {
-  const basicForm = proxy.$refs.basicInfo.$refs.basicInfoForm
-  const genForm = proxy.$refs.genInfo.$refs.genInfoForm
-  Promise.all([basicForm, genForm].map(getFormPromise)).then((res) => {
-    const validateResult = res.every((item) => !!item)
+const submitForm = () => {
+  const basicForm = basicInfo.value.$refs.basicInfoForm;
+  const genForm = genInfo.value.$refs.genInfoForm;
+
+  Promise.all([basicForm, genForm].map(getFormPromise)).then(async res => {
+    const validateResult = res.every(item => !!item);
     if (validateResult) {
-      const genTable = Object.assign({}, info.value)
-      genTable.columns = columns.value
+      const genTable: any = Object.assign({}, info.value);
+      genTable.columns = columns.value;
       genTable.params = {
-        treeCode: info.value.treeCode,
+        treeCode: info.value?.treeCode,
         treeName: info.value.treeName,
         treeParentCode: info.value.treeParentCode,
-        parentMenuId: info.value.parentMenuId,
+        parentMenuId: info.value.parentMenuId
+      };
+      const response = await updateGenTable(genTable);
+      proxy?.$modal.msgSuccess(response.msg);
+      if (response.code === 200) {
+        close();
       }
-      updateGenTable(genTable).then((res) => {
-        proxy.$modal.msgSuccess(res.msg)
-        if (res.code === 200) {
-          close()
-        }
-      })
     } else {
-      proxy.$modal.msgError('表单校验未通过，请重新检查提交内容')
+      proxy?.$modal.msgError("表单校验未通过，请重新检查提交内容");
     }
-  })
+  });
 }
-function getFormPromise(form) {
-  return new Promise((resolve) => {
-    form.validate((res) => {
-      resolve(res)
-    })
-  })
+const getFormPromise = (form: any) => {
+  return new Promise(resolve => {
+    form.validate((res: any) => {
+      resolve(res);
+    });
+  });
 }
-function close() {
-  const obj = { path: '/tool/gen', query: { t: Date.now(), pageNum: route.query.pageNum } }
-  proxy.$tab.closeOpenPage(obj)
+const close = () => {
+  const obj = {path: "/tool/gen", query: {t: Date.now(), pageNum: route.query.pageNum}};
+  proxy?.$tab.closeOpenPage(obj);
 }
 
-;(() => {
-  const tableId = route.params && route.params.tableId
+(async () => {
+  const tableId = route.params && route.params.tableId as string;
   if (tableId) {
     // 获取表详细信息
-    getGenTable(tableId).then((res) => {
-      columns.value = res.data.rows
-      info.value = res.data.info
-      tables.value = res.data.tables
-    })
+    const res = await getGenTable(tableId);
+    columns.value = res.data.rows;
+    info.value = res.data.info;
+    tables.value = res.data.tables;
     /** 查询字典下拉列表 */
-    getDictOptionselect().then((response) => {
-      dictOptions.value = response.data
-    })
+    const response = await getDictOptionselect();
+    dictOptions.value = response.data;
   }
-})()
+})();
 </script>

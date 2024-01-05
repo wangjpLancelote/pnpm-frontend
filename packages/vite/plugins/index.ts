@@ -8,6 +8,7 @@ import createAutoImport from './auto-import'
 import createSvgIcon from './svg-icon'
 import createCompression from './compression'
 import createSetupExtend from './vue-setup-extend'
+import setupExtend from './setup-extend'
 
 const packageJson = require('../../package.json')
 const version = packageJson.version
@@ -55,8 +56,9 @@ export default (viteEnv: any, isBuild = false): any[] => {
       polyfills: ['es.promise', 'es.symbol'],
     }),
   ]
-  vitePlugins.push(createAutoImport())
+  vitePlugins.push(createAutoImport(path))
   vitePlugins.push(createSetupExtend())
+  vitePlugins.push(setupExtend());
   vitePlugins.push(createSvgIcon(isBuild))
   vitePlugins.push(createComponents(path))
   isBuild && vitePlugins.push(...createCompression(viteEnv))
