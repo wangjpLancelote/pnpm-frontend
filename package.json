@@ -7,6 +7,7 @@
     "preinstall": "node ./scripts/preinstall.js",
     "postinstall": "husky install",
     "pre-commit": "lint-staged",
+    "prepare": "husky install",
     "dev": "pnpm pnpm -r --parallel --filter @5dyl/template-cloud run dev",
     "build_master": "pnpm run -r --parallel --filter @5dyl/template-cloud build:master",
     "build_release": "pnpm run -r --parallel --filter @5dyl/template-cloud build:release",
