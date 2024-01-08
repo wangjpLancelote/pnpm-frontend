@@ -17,6 +17,6 @@ module.exports = {
         "build", // 打包
       ],
     ],
-    "subject-case": [0],
+    "subject-case": [0, "never"],
   },
 };
