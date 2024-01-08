@@ -2,7 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true,
+    node: true
   },
   parser: "vue-eslint-parser",
   extends: [
@@ -10,12 +10,12 @@ module.exports = {
     "plugin:vue/vue3-essential",
     "plugin:@typescript-eslint/recommended",
     "./.eslintrc-auto-import.json",
-    "plugin:prettier/recommended",
+    "plugin:prettier/recommended"
   ],
   parserOptions: {
     ecmaVersion: "2020",
     sourceType: "module",
-    parser: "@typescript-eslint/parser",
+    parser: "@typescript-eslint/parser"
   },
   plugins: ["vue", "@typescript-eslint"],
   rules: {
@@ -29,13 +29,13 @@ module.exports = {
         // 关闭空类型检查 {}
         extendDefaults: true,
         types: {
-          "{}": false,
-        },
-      },
-    ],
+          "{}": false
+        }
+      }
+    ]
   },
   globals: {
     DialogOption: "readonly",
-    OptionType: "readonly",
-  },
+    OptionType: "readonly"
+  }
 };
