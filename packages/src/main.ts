@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import "./index.css";
 
 import Cookies from "js-cookie";
 
@@ -44,8 +45,6 @@ import ImagePreview from "@/components/ImagePreview/index.vue";
 import TreeSelect from "@/components/TreeSelect/index.vue";
 // 字典标签组件
 import DictTag from "@/components/DictTag/index.vue";
-
-import "./index.css";
 
 const app = createApp(App);
 

@@ -12,10 +12,11 @@ module.exports = {
   semi: true,
   // 是否使用单引号
   singleQuote: false,
+
   // 更改引用对象属性的时间 可选值"<as-needed|consistent|preserve>"
   quoteProps: "as-needed",
   // 在JSX中使用单引号而不是双引号
-  jsxSingleQuote: false,
+  jsxSingleQuote: true,
   // 多行时尽可能打印尾随逗号。（例如，单行数组永远不会出现逗号结尾。） 可选值"<none|es5|all>"，默认none
   trailingComma: "none",
   // 在对象文字中的括号之间打印空格
