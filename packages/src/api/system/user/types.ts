@@ -16,7 +16,7 @@ export interface UserInfo {
  */
 export interface UserQuery extends PageQuery {
   userName?: string;
-  mobilePhone?: string;
+  phonenumber?: string;
   status?: string;
   deptId?: string | number;
   roleId?: string | number;
@@ -32,7 +32,7 @@ export interface UserVO extends BaseEntity {
   nickName: string;
   userType: string;
   email: string;
-  mobilePhone: string;
+  phonenumber: string;
   sex: string;
   avatar: string;
   status: string;
@@ -58,7 +58,7 @@ export interface UserForm {
   userName: string;
   nickName?: string;
   password: string;
-  mobilePhone?: string;
+  phonenumber?: string;
   email?: string;
   sex?: string;
   status: string;

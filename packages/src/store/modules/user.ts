@@ -23,8 +23,8 @@ export const useUserStore = defineStore('user', () => {
   const login = async (userInfo: LoginData): Promise<void> => {
     //复制一份数据，避免加密后影响到原数据
     const userInfoLogin = {
-      reviewUn: encrypt((userInfo.username || '').trim(), {}),
-      reviewPwd: encrypt((userInfo.password || '').trim(), {})
+      reviewUn: encrypt((userInfo.username || '').trim()),
+      reviewPwd: encrypt((userInfo.password || '').trim())
     };
     const [err, res] = await to(loginApi(userInfoLogin));
     if (res) {

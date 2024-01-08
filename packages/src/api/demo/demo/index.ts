@@ -44,8 +44,8 @@ export const addDemo = (data: DemoForm) => {
  */
 export const updateDemo = (data: DemoForm) => {
   return request({
-    url: '/demo/demo/edit',
-    method: 'post',
+    url: '/demo/demo',
+    method: 'put',
     data: data
   });
 };
@@ -57,6 +57,6 @@ export const updateDemo = (data: DemoForm) => {
 export const delDemo = (id: string | number | Array<string | number>) => {
   return request({
     url: '/demo/demo/' + id,
-    method: 'post'
+    method: 'delete'
   });
 };

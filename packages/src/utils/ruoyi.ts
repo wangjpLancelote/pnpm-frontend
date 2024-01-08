@@ -49,7 +49,7 @@ export function parseTime(time: any, pattern?: string) {
 export function resetForm(refName: any) {
   const { proxy } = getCurrentInstance() as ComponentInternalInstance;
   if (proxy?.$refs[refName]) {
-    proxy?.$refs[refName].resetFields()
+    (proxy?.$refs[refName] as any).resetFields()
   }
 }
 

@@ -15,6 +15,6 @@ export function list(query: OnlineQuery): AxiosPromise<OnlineVO[]> {
 export function forceLogout(tokenId: string) {
   return request({
     url: '/monitor/online/' + tokenId,
-    method: 'post'
+    method: 'delete'
   });
 }

@@ -47,7 +47,7 @@ const appStore = useAppStore();
 const userStore = useUserStore();
 const settingsStore = useSettingsStore();
 
-const { proxy } = getCurrentInstance() as ComponentInternalInstance;
+const { proxy }: any = getCurrentInstance() as ComponentInternalInstance;
 
 const userId = ref(userStore.userId);
 const nickName = ref(userStore.nickname);

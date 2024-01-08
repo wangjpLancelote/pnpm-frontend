@@ -44,8 +44,8 @@ export const addTree = (data: TreeForm) => {
  */
 export const updateTree = (data: TreeForm) => {
   return request({
-    url: '/demo/tree/edit',
-    method: 'post',
+    url: '/demo/tree',
+    method: 'put',
     data: data
   });
 };
@@ -57,6 +57,6 @@ export const updateTree = (data: TreeForm) => {
 export const delTree = (id: string | number | Array<string | number>) => {
   return request({
     url: '/demo/tree/' + id,
-    method: 'post'
+    method: 'delete'
   });
 };

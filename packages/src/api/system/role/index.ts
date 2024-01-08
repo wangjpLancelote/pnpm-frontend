@@ -39,8 +39,8 @@ export const addRole = (data: any) => {
  */
 export const updateRole = (data: any) => {
   return request({
-    url: '/system/role/edit',
-    method: 'post',
+    url: '/system/role',
+    method: 'put',
     data: data
   });
 };
@@ -50,8 +50,8 @@ export const updateRole = (data: any) => {
  */
 export const dataScope = (data: any) => {
   return request({
-    url: '/system/role/dataScope/edit',
-    method: 'post',
+    url: '/system/role/dataScope',
+    method: 'put',
     data: data
   });
 };
@@ -65,8 +65,8 @@ export const changeRoleStatus = (roleId: string | number, status: string) => {
     status
   };
   return request({
-    url: '/system/role/changeStatus/edit',
-    method: 'post',
+    url: '/system/role/changeStatus',
+    method: 'put',
     data: data
   });
 };
@@ -76,8 +76,8 @@ export const changeRoleStatus = (roleId: string | number, status: string) => {
  */
 export const delRole = (roleId: Array<string | number> | string | number) => {
   return request({
-    url: '/system/role/remove/' + roleId,
-    method: 'post'
+    url: '/system/role/' + roleId,
+    method: 'delete'
   });
 };
 
@@ -108,8 +108,8 @@ export const unallocatedUserList = (query: UserQuery): AxiosPromise<UserVO[]> =>
  */
 export const authUserCancel = (data: any) => {
   return request({
-    url: '/system/role/authUser/cancel/edit',
-    method: 'post',
+    url: '/system/role/authUser/cancel',
+    method: 'put',
     data: data
   });
 };
@@ -119,8 +119,8 @@ export const authUserCancel = (data: any) => {
  */
 export const authUserCancelAll = (data: any) => {
   return request({
-    url: '/system/role/authUser/cancelAll/edit',
-    method: 'post',
+    url: '/system/role/authUser/cancelAll',
+    method: 'put',
     params: data
   });
 };
@@ -131,7 +131,7 @@ export const authUserCancelAll = (data: any) => {
 export const authUserSelectAll = (data: any) => {
   return request({
     url: '/system/role/authUser/selectAll',
-    method: 'post',
+    method: 'put',
     params: data
   });
 };

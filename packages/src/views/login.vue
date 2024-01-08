@@ -104,7 +104,7 @@ function handleLogin() {
           const query = route.query
           const otherQueryParams = Object.keys(query).reduce((acc, cur) => {
             if (cur !== 'redirect') {
-              acc[cur] = query[cur]
+              (acc as any)[cur] = query[cur]
             }
             return acc
           }, {})

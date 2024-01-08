@@ -47,8 +47,8 @@ export const addDept = (data: DeptForm) => {
 // 修改部门
 export const updateDept = (data: DeptForm) => {
   return request({
-    url: '/system/dept/edit',
-    method: 'post',
+    url: '/system/dept',
+    method: 'put',
     data: data
   });
 };
@@ -56,7 +56,7 @@ export const updateDept = (data: DeptForm) => {
 // 删除部门
 export const delDept = (deptId: number | string) => {
   return request({
-    url: '/system/dept/remove/' + deptId,
-    method: 'post'
+    url: '/system/dept/' + deptId,
+    method: 'delete'
   });
 };

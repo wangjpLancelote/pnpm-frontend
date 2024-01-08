@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
-    "suppressImplicitAnyIndexErrors":true,
     "allowImportingTsExtensions":true,
     "sourceMap": true,
     "resolveJsonModule": true,
@@ -18,11 +17,12 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": ["vite/client","unplugin-vue-define-options/macros-global"],
+    "types": ["vite/client"],
     "skipLibCheck": true,
     // 允许默认导入
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/FormComp/src/form-render.tsx", "src/utils/jsencrypt.js"],
   "exclude": ["node_modules", "dist", "**/*.js"]

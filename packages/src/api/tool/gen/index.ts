@@ -30,8 +30,8 @@ export const getGenTable = (tableId: string | number): AxiosPromise<GenTableVO> 
 // 修改代码生成信息
 export const updateGenTable = (data: DbTableForm) => {
   return request({
-    url: '/tool/gen/edit',
-    method: 'post',
+    url: '/tool/gen',
+    method: 'put',
     data: data
   });
 };
@@ -56,8 +56,8 @@ export const previewTable = (tableId: string | number) => {
 // 删除表数据
 export const delTable = (tableId: string | number | Array<string | number>) => {
   return request({
-    url: '/tool/gen/remove/' + tableId,
-    method: 'post'
+    url: '/tool/gen/' + tableId,
+    method: 'delete'
   });
 };
 

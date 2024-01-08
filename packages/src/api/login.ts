@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
-import { LoginData, LoginResult, VerifyCodeResult, ExpertLoginResult } from './types';
+import { LoginData, LoginResult, VerifyCodeResult } from './types';
 import { UserInfo } from '@/api/system/user/types';
 
 /**
@@ -19,6 +19,14 @@ export function login(data: object): AxiosPromise<LoginResult> {
     },
     method: 'post',
     data: params
+  });
+}
+
+// 获取用户详细信息
+export function register(data: any): AxiosPromise<UserInfo> {
+  return request({
+    url: '/register',
+    method: 'get'
   });
 }
 
@@ -52,24 +60,4 @@ export function getInfo(): AxiosPromise<UserInfo> {
     url: '/getInfo',
     method: 'get'
   });
-}
-// 获取用户详细信息
-export function ExpertAuthLogin(query: any): AxiosPromise<ExpertLoginResult> {
-  return request({
-    url: '/Sso/ExpertAuthLogin',
-    method: 'get',
-    params: query
-  });
-}
-
-// 注册方法
-export function register(data: any) {
-  return request({
-    url: '/auth/register',
-    headers: {
-      isToken: false,
-    },
-    method: 'post',
-    data: data,
-  })
 }

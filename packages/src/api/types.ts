@@ -32,15 +32,6 @@ export interface LoginData {
 export interface LoginResult {
   token: string;
 }
-export interface ExpertLoginResult {
-  cookie: string;
-  sessionId: string;
-  username: string;
-  userInfo: {
-    ID: '';
-    UserName: '';
-  };
-}
 
 /**
  * 验证码返回

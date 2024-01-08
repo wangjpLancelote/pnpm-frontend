@@ -311,7 +311,7 @@ const submitForm = () => {
 }
 /** 下载按钮操作 */
 const handleDownload = (row: OssVO) => {
-    proxy?.$download.oss(row.ossId)
+    (proxy?.$download as any).oss(row.ossId)
 }
 /** 用户状态修改  */
 const handlePreviewListResource = async (preview: boolean) => {

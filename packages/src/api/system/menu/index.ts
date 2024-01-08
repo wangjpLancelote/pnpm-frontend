@@ -55,8 +55,8 @@ export const addMenu = (data: MenuForm) => {
 // 修改菜单
 export const updateMenu = (data: MenuForm) => {
   return request({
-    url: '/system/menu/edit',
-    method: 'post',
+    url: '/system/menu',
+    method: 'put',
     data: data
   });
 };
@@ -64,7 +64,7 @@ export const updateMenu = (data: MenuForm) => {
 // 删除菜单
 export const delMenu = (menuId: string | number) => {
   return request({
-    url: '/system/menu/remove/' + menuId,
-    method: 'post'
+    url: '/system/menu/' + menuId,
+    method: 'delete'
   });
 };

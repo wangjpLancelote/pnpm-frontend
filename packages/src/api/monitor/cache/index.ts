@@ -38,7 +38,7 @@ export function getCacheValue(cacheName: string, cacheKey: string) {
 export function clearCacheName(cacheName: string) {
   return request({
     url: '/monitor/cache/clearCacheName/' + cacheName,
-    method: 'post'
+    method: 'delete'
   });
 }
 
@@ -46,7 +46,7 @@ export function clearCacheName(cacheName: string) {
 export function clearCacheKey(cacheName: string, cacheKey: string) {
   return request({
     url: '/monitor/cache/clearCacheKey/' + cacheName + '/' + cacheKey,
-    method: 'post'
+    method: 'delete'
   });
 }
 
@@ -54,6 +54,6 @@ export function clearCacheKey(cacheName: string, cacheKey: string) {
 export function clearCacheAll() {
   return request({
     url: '/monitor/cache/clearCacheAll',
-    method: 'post'
+    method: 'delete'
   });
 }

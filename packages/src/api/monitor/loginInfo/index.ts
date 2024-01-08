@@ -15,7 +15,7 @@ export function list(query: LoginInfoQuery): AxiosPromise<LoginInfoVO[]> {
 export function delLoginInfo(infoId: string | number | Array<string | number>) {
   return request({
     url: '/monitor/logininfor/' + infoId,
-    method: 'post'
+    method: 'delete'
   });
 }
 
@@ -31,6 +31,6 @@ export function unlockLoginInfo(userName: string | Array<string>) {
 export function cleanLoginInfo() {
   return request({
     url: '/monitor/logininfor/clean',
-    method: 'post'
+    method: 'delete'
   });
 }

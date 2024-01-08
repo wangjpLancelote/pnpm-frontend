@@ -30,8 +30,8 @@ export function addNotice(data: NoticeForm) {
 // 修改公告
 export function updateNotice(data: NoticeForm) {
   return request({
-    url: '/system/notice/edit',
-    method: 'post',
+    url: '/system/notice',
+    method: 'put',
     data: data
   });
 }
@@ -39,7 +39,7 @@ export function updateNotice(data: NoticeForm) {
 // 删除公告
 export function delNotice(noticeId: string | number | Array<string | number>) {
   return request({
-    url: '/system/notice/remove/' + noticeId,
-    method: 'post'
+    url: '/system/notice/' + noticeId,
+    method: 'delete'
   });
 }

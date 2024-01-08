@@ -15,7 +15,7 @@ export function list(query: OperLogQuery): AxiosPromise<OperLogVO[]> {
 export function delOperlog(operId: string | number | Array<string | number>) {
   return request({
     url: '/monitor/operlog/' + operId,
-    method: 'post'
+    method: 'delete'
   });
 }
 
@@ -23,6 +23,6 @@ export function delOperlog(operId: string | number | Array<string | number>) {
 export function cleanOperlog() {
   return request({
     url: '/monitor/operlog/clean',
-    method: 'post'
+    method: 'delete'
   });
 }

@@ -12,7 +12,7 @@ export function authBinding(source: string) {
 export function authUnlock(authId: string) {
   return request({
     url: '/auth/unlock/' + authId,
-    method: 'post'
+    method: 'delete'
   });
 }
 //获取授权列表
