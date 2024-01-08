@@ -14,6 +14,8 @@ import store from "./store";
 import router from "./router";
 import directive from "./directive"; // directive
 import animate from "./animate";
+// eslint-disable-next-line prettier/prettier
+import i18n from "./lang/index";
 
 // 注册指令
 import plugins from "./plugins"; // plugins
@@ -73,6 +75,7 @@ app.use(router as any);
 app.use(store as any);
 app.use(plugins);
 app.use(elementIcons);
+app.use(i18n);
 app.component("SvgIcon", SvgIcon);
 
 directive(app);
