@@ -24,6 +24,7 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": "off",
     "vue/no-v-model-argument": "off",
     "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
     "@typescript-eslint/ban-types": [
       "error",
       {
