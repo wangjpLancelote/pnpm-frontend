@@ -1,11 +1,12 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { RouteRecordRaw } from 'vue-router';
+import request from "@/utils/request";
+import { mockRequest } from "@/utils/mock.ts";
+import { MockRoutersData } from "./mockUser.ts";
 
 // 获取路由
-export function getRouters(): AxiosPromise<RouteRecordRaw[]> {
-  return request({
-    url: '/getRouters',
-    method: 'get'
-  });
-}
+export const getRouters = () => {
+  // return request({
+  //   url: '/system/menu/getRouters',
+  //   method: 'get',
+  // })
+  return mockRequest(MockRoutersData);
+};

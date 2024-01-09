@@ -15,13 +15,6 @@ const appStore = useAppStore();
 const size = computed(() => appStore.size as any);
 
 
-onMounted(() => {
-  // nextTick(() => {
-  //   // ��ʼ��������ʽ
-  //   handleThemeStyle(useSettingsStore().theme)
-  // })
-})
-// �������֪ͨ����
 const up = new webUpdater()
 let hasDialogModel = false
 up.on('update', () => {

@@ -1,63 +1,67 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { LoginData, LoginResult, VerifyCodeResult } from './types';
-import { UserInfo } from '@/api/system/user/types';
+import request from "@/utils/request";
+import { mockRequest } from "@/utils/mock.ts";
+import { MockLoginData, MockUserInfoData } from "./mockUser.ts";
 
-/**
- * @param data {LoginData}
- * @returns
- */
-export function login(data: object): AxiosPromise<LoginResult> {
-  const params = {
-    ...data
-    // grantType: data.grantType || 'password'
-  };
+// 登录方法
+export function login(username: any, password: any, code: any, uuid: any) {
+  // return request({
+  //   url: '/auth/login',
+  //   headers: {
+  //     isToken: false,
+  //     repeatSubmit: false,
+  //   },
+  //   method: 'post',
+  //   data: { username, password, code, uuid },
+  // })
+  return mockRequest(MockLoginData);
+}
+
+// 注册方法
+export function register(data: any) {
   return request({
-    url: '/login',
+    url: "/auth/register",
     headers: {
       isToken: false
     },
-    method: 'post',
-    data: params
+    method: "post",
+    data: data
+  });
+}
+
+// 刷新方法
+export function refreshToken() {
+  return request({
+    url: "/auth/refresh",
+    method: "post"
   });
 }
 
 // 获取用户详细信息
-export function register(data: any): AxiosPromise<UserInfo> {
-  return request({
-    url: '/register',
-    method: 'get'
-  });
+export function getInfo() {
+  // return request({
+  //   url: '/system/user/getInfo',
+  //   method: 'get',
+  // })
+
+  return mockRequest(MockUserInfoData);
 }
 
-/**
- * 注销
- */
+// 退出方法
 export function logout() {
   return request({
-    url: '/logout',
-    method: 'post'
+    url: "/auth/logout",
+    method: "delete"
   });
 }
 
-/**
- * 获取验证码
- */
-export function getCodeImg(): AxiosPromise<VerifyCodeResult> {
+// 获取验证码
+export function getCodeImg() {
   return request({
-    url: '/captchaImage',
+    url: "/code",
     headers: {
       isToken: false
     },
-    method: 'get',
+    method: "get",
     timeout: 20000
-  });
-}
-
-// 获取用户详细信息
-export function getInfo(): AxiosPromise<UserInfo> {
-  return request({
-    url: '/getInfo',
-    method: 'get'
   });
 }
