@@ -9,7 +9,6 @@ import createSvgIcon from "./svg-icon";
 import createCompression from "./compression";
 import createSetupExtend from "./vue-setup-extend";
 import setupExtend from "./setup-extend";
-import wind from "./wind";
 import fs from "fs";
 
 const packageJsonContent = fs.readFileSync("./package.json", "utf-8");
@@ -65,7 +64,6 @@ export default (viteEnv: any, isBuild = false): any[] => {
   vitePlugins.push(setupExtend());
   vitePlugins.push(createSvgIcon(isBuild));
   vitePlugins.push(createComponents(path));
-  vitePlugins.push(wind());
   isBuild && vitePlugins.push(...createCompression(viteEnv));
 
   return vitePlugins;
