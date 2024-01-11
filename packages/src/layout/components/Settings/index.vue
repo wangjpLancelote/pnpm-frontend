@@ -42,35 +42,35 @@
     <div class="drawer-item">
       <span>开启 TopNav</span>
       <span class="comp-style">
-        <el-switch v-model="topNav.value" class="drawer-switch" />
+        <el-switch v-model="topNav" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
       <span>开启 Tags-Views</span>
       <span class="comp-style">
-        <el-switch v-model="tagsView.value" class="drawer-switch" />
+        <el-switch v-model="tagsView" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
       <span>固定 Header</span>
       <span class="comp-style">
-        <el-switch v-model="fixedHeader.value" class="drawer-switch" />
+        <el-switch v-model="fixedHeader" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
       <span>显示 Logo</span>
       <span class="comp-style">
-        <el-switch v-model="sidebarLogo.value" class="drawer-switch" />
+        <el-switch v-model="sidebarLogo" class="drawer-switch" />
       </span>
     </div>
 
     <div class="drawer-item">
       <span>动态标题</span>
       <span class="comp-style">
-        <el-switch v-model="dynamicTitle.value" class="drawer-switch" />
+        <el-switch v-model="dynamicTitle" class="drawer-switch" />
       </span>
     </div>
 

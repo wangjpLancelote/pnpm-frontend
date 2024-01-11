@@ -8,7 +8,7 @@
           :background-color="bgColor"
           :text-color="textColor"
           :unique-opened="true"
-          :active-text-color="theme.value"
+          :active-text-color="theme"
           :collapse-transition="false"
           mode="vertical"
         >
@@ -45,7 +45,7 @@ const activeMenu = computed(() => {
   const { meta, path } = route;
   // if set path, the sidebar will highlight the path you set
   if (meta.activeMenu) {
-    return (meta.activeMenu as any).path;
+    return meta.activeMenu;
   }
   return path;
 });

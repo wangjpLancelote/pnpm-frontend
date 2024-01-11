@@ -1,10 +1,12 @@
-@import './variables.module.scss';
-@import './mixin.scss';
-@import './transition.scss';
-@import './element-ui.scss';
-@import './sidebar.scss';
-@import './btn.scss';
-@import './ruoyi.scss';
+@import "./variables.module.scss";
+@import "./mixin.scss";
+@import "./transition.scss";
+@import "./element-ui.scss";
+@import "./sidebar.scss";
+@import "./btn.scss";
+@import "./ruoyi.scss";
+// @import 'animate.css';
+@import "element-plus/dist/index.css";
 
 body {
   height: 100%;
@@ -12,7 +14,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  font-family:
+    Helvetica Neue,
+    Helvetica,
+    PingFang SC,
+    Hiragino Sans GB,
+    Microsoft YaHei,
+    Arial,
+    sans-serif;
 }
 
 label {
@@ -106,7 +115,8 @@ aside {
   display: block;
   line-height: 32px;
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   color: #2c3e50;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -126,6 +136,21 @@ aside {
   padding: 20px;
 }
 
+// search面板样式
+.panel,
+.search {
+  margin-bottom: 0.75rem;
+  border-radius: 0.25rem;
+  border: 1px solid var(--el-border-color-light);
+  background-color: var(--el-bg-color-overlay);
+  padding: 0.75rem;
+
+  &:hover {
+    box-shadow: 0 2px 12px #0000001a;
+    transition: all ease 0.3s;
+  }
+}
+
 .components-container {
   margin: 30px 50px;
   position: relative;
@@ -136,7 +161,7 @@ aside {
 }
 
 .text-center {
-  text-align: center
+  text-align: center;
 }
 
 .sub-navbar {
