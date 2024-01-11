@@ -1,12 +1,12 @@
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { MenuQuery, MenuVO, MenuForm, MenuTreeOption, RoleMenuTree } from './types';
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import { MenuQuery, MenuVO, MenuForm, MenuTreeOption, RoleMenuTree } from "./types";
 
 // 查询菜单列表
 export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
   return request({
-    url: '/system/menu/list',
-    method: 'get',
+    url: "/system/menu/list",
+    method: "get",
     params: query
   });
 };
@@ -14,40 +14,40 @@ export const listMenu = (query?: MenuQuery): AxiosPromise<MenuVO[]> => {
 // 查询菜单详细
 export const getMenu = (menuId: string | number): AxiosPromise<MenuVO> => {
   return request({
-    url: '/system/menu/' + menuId,
-    method: 'get'
+    url: "/system/menu/" + menuId,
+    method: "get"
   });
 };
 
 // 查询菜单下拉树结构
 export const treeselect = (): AxiosPromise<MenuTreeOption[]> => {
   return request({
-    url: '/system/menu/treeselect',
-    method: 'get'
+    url: "/system/menu/treeselect",
+    method: "get"
   });
 };
 
 // 根据角色ID查询菜单下拉树结构
 export const roleMenuTreeselect = (roleId: string | number): AxiosPromise<RoleMenuTree> => {
   return request({
-    url: '/system/menu/roleMenuTreeselect/' + roleId,
-    method: 'get'
+    url: "/system/menu/roleMenuTreeselect/" + roleId,
+    method: "get"
   });
 };
 
 // 根据角色ID查询菜单下拉树结构
 export const tenantPackageMenuTreeselect = (packageId: string | number): AxiosPromise<RoleMenuTree> => {
   return request({
-    url: '/system/menu/tenantPackageMenuTreeselect/' + packageId,
-    method: 'get'
+    url: "/system/menu/tenantPackageMenuTreeselect/" + packageId,
+    method: "get"
   });
 };
 
 // 新增菜单
 export const addMenu = (data: MenuForm) => {
   return request({
-    url: '/system/menu',
-    method: 'post',
+    url: "/system/menu",
+    method: "post",
     data: data
   });
 };
@@ -55,8 +55,8 @@ export const addMenu = (data: MenuForm) => {
 // 修改菜单
 export const updateMenu = (data: MenuForm) => {
   return request({
-    url: '/system/menu',
-    method: 'put',
+    url: "/system/menu/edit",
+    method: "post",
     data: data
   });
 };
@@ -64,7 +64,7 @@ export const updateMenu = (data: MenuForm) => {
 // 删除菜单
 export const delMenu = (menuId: string | number) => {
   return request({
-    url: '/system/menu/' + menuId,
-    method: 'delete'
+    url: "/system/menu/remove/" + menuId,
+    method: "post"
   });
 };

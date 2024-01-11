@@ -40,7 +40,7 @@ up.on('update', () => {
 onMounted(() => {
   nextTick(() => {
     // 初始化主题样式
-    // handleThemeStyle(useSettingsStore().theme)
+    handleThemeStyle(useSettingsStore().theme)
     // 更换主题色
     // document.body.style.setProperty('--el-color-primary', '#157BC5');
     // document.body.style.setProperty('--el-color-success', '#34CC99');

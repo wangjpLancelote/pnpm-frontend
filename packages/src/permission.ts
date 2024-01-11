@@ -11,36 +11,46 @@ import usePermissionStore from "@/store/modules/permission";
 import { ElMessage } from "element-plus";
 
 NProgress.configure({ showSpinner: false });
-const whiteList = ["/login", "/register", "/social-callback"];
+const whiteList = ["/login", "/register"];
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to: any, from, next) => {
   NProgress.start();
   if (getToken()) {
-    to.meta.title && useSettingsStore().setTitle(to.meta.title as string);
+    to.meta.title && useSettingsStore().setTitle(to.meta.title);
     /* has token*/
     if (to.path === "/login") {
       next({ path: "/" });
       NProgress.done();
+    } else if (whiteList.indexOf(to.path) !== -1) {
+      next();
     } else {
       if (useUserStore().roles.length === 0) {
         isRelogin.show = true;
         // 判断当前用户是否已拉取完user_info信息
-        const [err] = await tos(useUserStore().getInfo());
-        if (err) {
-          await useUserStore().logout();
-          ElMessage.error(err);
-          next({ path: "/" });
-        } else {
-          isRelogin.show = false;
-          const accessRoutes = await usePermissionStore().generateRoutes();
-          // 根据roles权限生成可访问的路由表
-          accessRoutes.forEach((route) => {
-            if (!isHttp(route.path)) {
-              router.addRoute(route); // 动态添加可访问路由表
-            }
+        useUserStore()
+          .getInfo()
+          .then(() => {
+            isRelogin.show = false;
+            usePermissionStore()
+              .generateRoutes()
+              .then((accessRoutes) => {
+                // 根据roles权限生成可访问的路由表
+                accessRoutes.forEach((route) => {
+                  if (!isHttp(route.path)) {
+                    router.addRoute(route); // 动态添加可访问路由表
+                  }
+                });
+                next({ ...to, replace: true }); // hack方法 确保addRoutes已完成
+              });
+          })
+          .catch((err) => {
+            useUserStore()
+              .logout()
+              .then(() => {
+                ElMessage.error(err);
+                next({ path: "/" });
+              });
           });
-          next({ ...to, replace: true }); // hack方法 确保addRoutes已完成
-        }
       } else {
         next();
       }

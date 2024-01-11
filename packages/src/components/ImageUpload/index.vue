@@ -39,9 +39,9 @@
 
 <script setup lang="ts">
 import { getToken } from "@/utils/auth";
-import { listByIds, delOss } from "@/api/system/oss";
+// import { listByIds, delOss } from "@/api/system/oss";
 import { ComponentInternalInstance, PropType } from "vue";
-import { OssVO } from "@/api/system/oss/types";
+// import { OssVO } from "@/api/system/oss/types";
 import { ElUpload, UploadFile } from "element-plus";
 
 const props = defineProps({
@@ -86,33 +86,33 @@ const showTip = computed(
 
 const imageUploadRef = ref(ElUpload);
 
-watch(() => props.modelValue, async val => {
-    if (val) {
-        // 首先将值转为数组
-        let list:OssVO[] = [];
-        if (Array.isArray(val)) {
-            list = val as OssVO[];
-        } else {
-            const res = await listByIds(val as string)
-            list = res.data
-        }
-        // 然后将数组转为对象数组
-        fileList.value = list.map(item => {
-            // 字符串回显处理 如果此处存的是url可直接回显 如果存的是id需要调用接口查出来
-            let itemData;
-            if (typeof item === "string") {
-                itemData = { name: item, url: item };
-            } else {
-                // 此处name使用ossId 防止删除出现重名
-                itemData = { name: item.ossId, url: item.url, ossId: item.ossId };
-            }
-            return itemData;
-        });
-    } else {
-        fileList.value = [];
-        return [];
-    }
-},{ deep: true, immediate: true });
+// watch(() => props.modelValue, async val => {
+//     if (val) {
+//         // 首先将值转为数组
+//         let list:OssVO[] = [];
+//         if (Array.isArray(val)) {
+//             list = val as OssVO[];
+//         } else {
+//             const res = await listByIds(val as string)
+//             list = res.data
+//         }
+//         // 然后将数组转为对象数组
+//         fileList.value = list.map(item => {
+//             // 字符串回显处理 如果此处存的是url可直接回显 如果存的是id需要调用接口查出来
+//             let itemData;
+//             if (typeof item === "string") {
+//                 itemData = { name: item, url: item };
+//             } else {
+//                 // 此处name使用ossId 防止删除出现重名
+//                 itemData = { name: item.ossId, url: item.url, ossId: item.ossId };
+//             }
+//             return itemData;
+//         });
+//     } else {
+//         fileList.value = [];
+//         return [];
+//     }
+// },{ deep: true, immediate: true });
 
 /** 上传前loading加载 */
 const handleBeforeUpload = (file: any) => {
@@ -171,7 +171,7 @@ const handleDelete = (file: UploadFile): boolean => {
     const findex = fileList.value.map(f => f.name).indexOf(file.name);
     if (findex > -1 && uploadList.value.length === number.value) {
         let ossId = fileList.value[findex].ossId;
-        delOss(ossId);
+        // delOss(ossId);
         fileList.value.splice(findex, 1);
         emit("update:modelValue", listToString(fileList.value));
         return false;

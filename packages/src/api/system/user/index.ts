@@ -1,9 +1,10 @@
-import { DeptVO } from './../dept/types';
-import { RoleVO } from '@/api/system/role/types';
-import request from '@/utils/request';
-import { AxiosPromise } from 'axios';
-import { UserForm, UserQuery, UserVO, UserInfoVO } from './types';
-import { parseStrEmpty } from '@/utils/ruoyi';
+import { DeptVO } from "./../dept/types";
+import { RoleVO } from "@/api/system/role/types";
+import request from "@/utils/request";
+import { AxiosPromise } from "axios";
+import { UserForm, UserQuery, UserVO, UserInfoVO } from "./types";
+import { parseStrEmpty } from "@/utils/ruoyi";
+import { encrypt } from "@/utils/encryptUtil";
 
 /**
  * 查询用户列表
@@ -11,8 +12,8 @@ import { parseStrEmpty } from '@/utils/ruoyi';
  */
 export function listUser(query: UserQuery): AxiosPromise<UserVO[]> {
   return request({
-    url: '/system/user/list',
-    method: 'get',
+    url: "/system/user/list",
+    method: "get",
     params: query
   });
 }
@@ -23,8 +24,8 @@ export function listUser(query: UserQuery): AxiosPromise<UserVO[]> {
  */
 export function getUser(userId?: string | number): AxiosPromise<UserInfoVO> {
   return request({
-    url: '/system/user/' + parseStrEmpty(userId),
-    method: 'get'
+    url: "/system/user/" + parseStrEmpty(userId),
+    method: "get"
   });
 }
 
@@ -33,8 +34,8 @@ export function getUser(userId?: string | number): AxiosPromise<UserInfoVO> {
  */
 export function addUser(data: UserForm) {
   return request({
-    url: '/system/user',
-    method: 'post',
+    url: "/system/user",
+    method: "post",
     data: data
   });
 }
@@ -44,8 +45,8 @@ export function addUser(data: UserForm) {
  */
 export function updateUser(data: UserForm) {
   return request({
-    url: '/system/user',
-    method: 'put',
+    url: "/system/user/edit",
+    method: "post",
     data: data
   });
 }
@@ -56,24 +57,24 @@ export function updateUser(data: UserForm) {
  */
 export function delUser(userId: Array<string | number> | string | number) {
   return request({
-    url: '/system/user/' + userId,
-    method: 'delete'
+    url: "/system/user/remove/" + userId,
+    method: "post"
   });
 }
 
 /**
- * 用户密码重置
+ * 密码重置
  * @param userId 用户ID
  * @param password 密码
  */
-export function resetUserPwd(userId: string | number, password: string) {
+export function resetUserPwd(userId: string | number, nickName: string) {
   const data = {
     userId,
-    password
+    nickName
   };
   return request({
-    url: '/system/user/resetPwd',
-    method: 'put',
+    url: "/system/user/resetPwd",
+    method: "post",
     data: data
   });
 }
@@ -89,8 +90,8 @@ export function changeUserStatus(userId: number | string, status: string) {
     status
   };
   return request({
-    url: '/system/user/changeStatus',
-    method: 'put',
+    url: "/system/user/changeStatus/edit",
+    method: "post",
     data: data
   });
 }
@@ -100,8 +101,8 @@ export function changeUserStatus(userId: number | string, status: string) {
  */
 export function getUserProfile(): AxiosPromise<UserInfoVO> {
   return request({
-    url: '/system/user/profile',
-    method: 'get'
+    url: "/system/user/profile",
+    method: "get"
   });
 }
 
@@ -111,25 +112,27 @@ export function getUserProfile(): AxiosPromise<UserInfoVO> {
  */
 export function updateUserProfile(data: UserForm) {
   return request({
-    url: '/system/user/profile',
-    method: 'put',
+    url: "/system/user/profile/edit",
+    method: "post",
     data: data
   });
 }
 
 /**
- * 用户密码重置
+ * 密码重置
  * @param oldPassword 旧密码
  * @param newPassword 新密码
  */
 export function updateUserPwd(oldPassword: string, newPassword: string) {
+  oldPassword = encrypt((oldPassword || "").trim());
+  newPassword = encrypt((newPassword || "").trim());
   const data = {
     oldPassword,
     newPassword
   };
   return request({
-    url: '/system/user/profile/updatePwd',
-    method: 'put',
+    url: "/system/user/profile/updatePwd",
+    method: "post",
     params: data
   });
 }
@@ -140,8 +143,8 @@ export function updateUserPwd(oldPassword: string, newPassword: string) {
  */
 export function uploadAvatar(data: FormData) {
   return request({
-    url: '/system/user/profile/avatar',
-    method: 'post',
+    url: "/system/user/profile/avatar",
+    method: "post",
     data: data
   });
 }
@@ -152,8 +155,8 @@ export function uploadAvatar(data: FormData) {
  */
 export function getAuthRole(userId: string | number): AxiosPromise<{ user: UserVO; roles: RoleVO[] }> {
   return request({
-    url: '/system/user/authRole/' + userId,
-    method: 'get'
+    url: "/system/user/authRole/" + userId,
+    method: "get"
   });
 }
 
@@ -163,8 +166,8 @@ export function getAuthRole(userId: string | number): AxiosPromise<{ user: UserV
  */
 export function updateAuthRole(data: { userId: string; roleIds: string }) {
   return request({
-    url: '/system/user/authRole',
-    method: 'put',
+    url: "/system/user/authRole/edit",
+    method: "post",
     params: data
   });
 }
@@ -174,7 +177,17 @@ export function updateAuthRole(data: { userId: string; roleIds: string }) {
  */
 export function deptTreeSelect(): AxiosPromise<DeptVO[]> {
   return request({
-    url: '/system/user/deptTree',
-    method: 'get'
+    url: "/system/user/deptTree",
+    method: "get"
+  });
+}
+
+/**
+ * 同步用户信息内容
+ */
+export function synchroUserInfo() {
+  return request({
+    url: "/system/user/synchro",
+    method: "post"
   });
 }

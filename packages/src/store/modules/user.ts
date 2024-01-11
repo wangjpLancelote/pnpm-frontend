@@ -1,17 +1,17 @@
-import { to } from 'await-to-js';
-import defAva from '@/assets/images/profile.jpg';
-import store from '@/store';
-import { getToken, removeToken, setToken } from '@/utils/auth';
-import { login as loginApi, logout as logoutApi, getInfo as getUserInfo } from '@/api/login';
-import { LoginData } from '@/api/types';
-import { encrypt } from '@/utils/jsencrypt';
+import { to } from "await-to-js";
+import defAva from "@/assets/images/profile.jpg";
+import store from "@/store";
+import { getToken, removeToken, setToken } from "@/utils/auth";
+import { login as loginApi, logout as logoutApi, getInfo as getUserInfo } from "@/api/login";
+import { LoginData } from "@/api/types";
+import { encrypt } from "@/utils/jsencrypt";
 
-export const useUserStore = defineStore('user', () => {
+export const useUserStore = defineStore("user", () => {
   const token = ref(getToken());
-  const name = ref('');
-  const nickname = ref('');
-  const userId = ref<string | number>('');
-  const avatar = ref('');
+  const name = ref("");
+  const nickname = ref("");
+  const userId = ref<string | number>("");
+  const avatar = ref("");
   const roles = ref<Array<string>>([]); // 用户角色编码集合 → 判断路由权限
   const permissions = ref<Array<string>>([]); // 用户权限编码集合 → 判断按钮权限
 
@@ -23,14 +23,14 @@ export const useUserStore = defineStore('user', () => {
   const login = async (userInfo: LoginData): Promise<void> => {
     //复制一份数据，避免加密后影响到原数据
     const userInfoLogin = {
-      reviewUn: encrypt((userInfo.username || '').trim()),
-      reviewPwd: encrypt((userInfo.password || '').trim())
+      reviewUn: encrypt((userInfo.username || "").trim()),
+      reviewPwd: encrypt((userInfo.password || "").trim())
     };
     const [err, res] = await to(loginApi(userInfoLogin));
     if (res) {
       const data = res.data;
-      setToken(data.token);
-      token.value = data.token;
+      setToken(data.access_token);
+      token.value = data.access_token;
       return Promise.resolve();
     }
     return Promise.reject(err);
@@ -40,16 +40,16 @@ export const useUserStore = defineStore('user', () => {
   const getInfo = async (): Promise<void> => {
     const [err, res] = await to(getUserInfo());
     if (res) {
-      const data = res.data;
-      const user = data.user;
-      const profile = user.avatar == '' || user.avatar == null ? defAva : user.avatar;
+      const data: any = res;
+      const user = res.user;
+      const profile = user.avatar == "" || user.avatar == null ? defAva : user.avatar;
 
       if (data.roles && data.roles.length > 0) {
         // 验证返回的roles是否是一个非空数组
         roles.value = data.roles;
         permissions.value = data.permissions;
       } else {
-        roles.value = ['ROLE_DEFAULT'];
+        roles.value = ["ROLE_DEFAULT"];
       }
       name.value = user.userName;
       nickname.value = user.nickName;
@@ -63,7 +63,7 @@ export const useUserStore = defineStore('user', () => {
   // 注销
   const logout = async (): Promise<void> => {
     await logoutApi();
-    token.value = '';
+    token.value = "";
     roles.value = [];
     permissions.value = [];
     removeToken();

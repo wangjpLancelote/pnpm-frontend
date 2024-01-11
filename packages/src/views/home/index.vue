@@ -2,7 +2,7 @@
   <div class="page-box page-home">首页</div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 defineOptions({
   name: 'Index',
 })

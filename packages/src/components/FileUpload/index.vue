@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { getToken } from "@/utils/auth";
-import { listByIds, delOss } from "@/api/system/oss";
+// import { listByIds, delOss } from "@/api/system/oss";
 import { ComponentInternalInstance } from "vue";
 import { ElUpload, UploadFile } from "element-plus";
 
@@ -88,31 +88,31 @@ const showTip = computed(
 
 const fileUploadRef = ref(ElUpload);
 
-watch(() => props.modelValue, async val => {
-    if (val) {
-        let temp = 1;
-        // 首先将值转为数组
-        let list = [];
-        if (Array.isArray(val)) {
-            list = val;
-        } else {
-            const res =  await listByIds(val as string)
-            list = res.data.map((oss) => {
-                const data = { name: oss.originalName, url: oss.url, ossId: oss.ossId };
-                return data;
-            });
-        }
-        // 然后将数组转为对象数组
-        fileList.value = list.map(item => {
-            item = {name: item.name, url: item.url, ossId: item.ossId};
-            item.uid = item.uid || new Date().getTime() + temp++;
-            return item;
-        });
-    } else {
-        fileList.value = [];
-        return [];
-    }
-},{ deep: true, immediate: true });
+// watch(() => props.modelValue, async val => {
+//     if (val) {
+//         let temp = 1;
+//         // 首先将值转为数组
+//         let list = [];
+//         if (Array.isArray(val)) {
+//             list = val;
+//         } else {
+//             const res =  await listByIds(val as string)
+//             list = res.data.map((oss) => {
+//                 const data = { name: oss.originalName, url: oss.url, ossId: oss.ossId };
+//                 return data;
+//             });
+//         }
+//         // 然后将数组转为对象数组
+//         fileList.value = list.map(item => {
+//             item = {name: item.name, url: item.url, ossId: item.ossId};
+//             item.uid = item.uid || new Date().getTime() + temp++;
+//             return item;
+//         });
+//     } else {
+//         fileList.value = [];
+//         return [];
+//     }
+// },{ deep: true, immediate: true });
 
 // 上传前校检格式和大小
 const handleBeforeUpload = (file: any) => {
@@ -166,7 +166,7 @@ const handleUploadSuccess = (res:any, file: UploadFile) => {
 // 删除文件
 const handleDelete = (index: number) => {
     let ossId = fileList.value[index].ossId;
-    delOss(ossId);
+    // delOss(ossId);
     fileList.value.splice(index, 1);
     emit("update:modelValue", listToString(fileList.value));
 }

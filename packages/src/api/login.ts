@@ -3,7 +3,7 @@ import { mockRequest } from "@/utils/mock.ts";
 import { MockLoginData, MockUserInfoData } from "./mockUser.ts";
 
 // 登录方法
-export function login(username: any, password: any, code: any, uuid: any) {
+export function login(data: any) {
   // return request({
   //   url: '/auth/login',
   //   headers: {

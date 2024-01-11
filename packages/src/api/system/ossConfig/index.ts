@@ -1,12 +1,12 @@
-import request from '@/utils/request';
-import { OssConfigForm, OssConfigQuery, OssConfigVO } from './types';
-import { AxiosPromise } from 'axios';
+import request from "@/utils/request";
+import { OssConfigForm, OssConfigQuery, OssConfigVO } from "./types";
+import { AxiosPromise } from "axios";
 
 // 查询对象存储配置列表
 export function listOssConfig(query: OssConfigQuery): AxiosPromise<OssConfigVO[]> {
   return request({
-    url: '/resource/oss/config/list',
-    method: 'get',
+    url: "/resource/oss/config/list",
+    method: "get",
     params: query
   });
 }
@@ -14,16 +14,16 @@ export function listOssConfig(query: OssConfigQuery): AxiosPromise<OssConfigVO[]
 // 查询对象存储配置详细
 export function getOssConfig(ossConfigId: string | number): AxiosPromise<OssConfigVO> {
   return request({
-    url: '/resource/oss/config/' + ossConfigId,
-    method: 'get'
+    url: "/resource/oss/config/" + ossConfigId,
+    method: "get"
   });
 }
 
 // 新增对象存储配置
 export function addOssConfig(data: OssConfigForm) {
   return request({
-    url: '/resource/oss/config',
-    method: 'post',
+    url: "/resource/oss/config",
+    method: "post",
     data: data
   });
 }
@@ -31,8 +31,8 @@ export function addOssConfig(data: OssConfigForm) {
 // 修改对象存储配置
 export function updateOssConfig(data: OssConfigForm) {
   return request({
-    url: '/resource/oss/config',
-    method: 'put',
+    url: "/resource/oss/config/edit",
+    method: "post",
     data: data
   });
 }
@@ -40,8 +40,8 @@ export function updateOssConfig(data: OssConfigForm) {
 // 删除对象存储配置
 export function delOssConfig(ossConfigId: string | number | Array<string | number>) {
   return request({
-    url: '/resource/oss/config/' + ossConfigId,
-    method: 'delete'
+    url: "/resource/oss/config/remove/" + ossConfigId,
+    method: "post"
   });
 }
 
@@ -53,8 +53,8 @@ export function changeOssConfigStatus(ossConfigId: string | number, status: stri
     configKey
   };
   return request({
-    url: '/resource/oss/config/changeStatus',
-    method: 'put',
+    url: "/resource/oss/config/changeStatus/edit",
+    method: "post",
     data: data
   });
 }
