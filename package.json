@@ -20,6 +20,7 @@
     "@vue/compiler-sfc": "3.3.9",
     "@vueuse/components": "10.1.2",
     "@vueuse/core": "10.6.1",
+    "animate.css": "^4.1.1",
     "pinia": "2.0.22",
     "pinia-plugin-persist": "1.0.0",
     "terser": "5.16.8",

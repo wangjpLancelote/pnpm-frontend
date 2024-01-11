@@ -23,6 +23,9 @@ importers:
       '@vueuse/core':
         specifier: 10.6.1
         version: 10.6.1(vue@3.3.9)
+      animate.css:
+        specifier: ^4.1.1
+        version: 4.1.1
       pinia:
         specifier: 2.0.22
         version: 2.0.22(vue@3.3.9)
@@ -2425,6 +2428,10 @@ packages:
       json-schema-traverse: 0.4.1
       uri-js: 4.4.1
     dev: true
+
+  /animate.css@4.1.1:
+    resolution: {integrity: sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==}
+    dev: false
 
   /ansi-escapes@6.2.0:
     resolution: {integrity: sha512-kzRaCqXnpzWs+3z5ABPQiVke+iq0KXkHo8xiWV4RPTi5Yli0l97BEQuhXV1s7+aSU/fu1kUuxgS4MsQ0fRuygw==}
