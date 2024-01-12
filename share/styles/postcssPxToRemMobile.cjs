@@ -1,4 +1,5 @@
-const postcssPxToRem = require('postcss-pxtorem')
+// const postcssPxToRem = require('postcss-pxtorem')
+import postcssPxToRem from 'postcss-pxtorem'
 module.exports = {
   plugins: [
     require('postcss-preset-env'),

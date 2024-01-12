@@ -1,6 +1,6 @@
 <template>
   <div class="table-box">
-    <ItTable :list="datalist" :amount="0" :columns="getCols"></ItTable>
+    <!-- <ItTable :list="datalist" :amount="0" :columns="getCols"></ItTable> -->
   </div>
 </template>
 <script>
@@ -11,7 +11,7 @@ export default {
 
 <script setup>
 import { ref, computed } from "vue";
-import { ItTable } from "@5dyl/itbox";
+// import { ItTable } from "@5dyl/itbox";
 
 const props = defineProps({
   datalist: {

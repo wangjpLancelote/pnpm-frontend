@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
+  "type": "module",
+  "files": [
+    "*"
+  ],
   "scripts": {
     "creatRouter": "node ./common/creatRouter.cjs",
     "dev": "pnpm run creatRouter && vite",

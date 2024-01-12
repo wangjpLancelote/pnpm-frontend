@@ -15,7 +15,7 @@
     "allowJs": true,
     "skipDefaultLibCheck": true,
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["/*"]
     },
     "types": ["vite/client"],
     "skipLibCheck": true,
@@ -24,6 +24,6 @@
     "forceConsistentCasingInFileNames": true,
     "strictPropertyInitialization": false
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/FormComp/src/form-render.tsx", "src/utils/jsencrypt.js"],
+  "include": ["vite.config.ts", "components/**/*.ts", "components/**/*.tsx", "components/**/*.vue", "components/types/**/*.d.ts", "utils/**/*.ts"],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }

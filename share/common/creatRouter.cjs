@@ -1,4 +1,8 @@
-let fs = require('fs')
+
+// import fs from 'fs'
+// import path from 'path'
+
+const fs = require('fs');
 const path = require('path')
 
 let outFiles = ['common', 'dist', 'node_modules']
