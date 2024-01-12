@@ -26,7 +26,7 @@ export const MockUserInfoData = {
     userId: 1,
     deptId: 103,
     userName: "admin",
-    nickName: "若依",
+    nickName: "Admin",
     email: "ry@161.com",
     phonenumber: "15888888888",
     sex: "1",
@@ -42,7 +42,7 @@ export const MockUserInfoData = {
       ancestors: "0,100,101",
       deptName: "研发部门",
       orderNum: 1,
-      leader: "若依",
+      leader: "Leader",
       status: "0",
       children: []
     },
@@ -354,7 +354,7 @@ export const MockRoutersData = {
     //   hidden: false,
     //   component: 'Layout',
     //   meta: {
-    //     title: '若依官网',
+    //     title: '官网',
     //     icon: 'guide',
     //     noCache: false,
     //     link: 'http://ruoyi.vip',

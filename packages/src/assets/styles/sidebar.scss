@@ -4,7 +4,7 @@
     transition: margin-left 0.28s;
     margin-left: $base-sidebar-width;
     position: relative;
-    // padding-top: 50px;
+    padding-top: 50px;
   }
 
   .sidebar-container {
@@ -175,7 +175,8 @@
 
     .sidebar-container {
       transition: transform 0.28s;
-      width: $base-sidebar-width !important;
+      // width: $base-sidebar-width !important;
+      width: 0px !important;
     }
 
     &.hideSidebar {

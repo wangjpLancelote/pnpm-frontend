@@ -2,7 +2,7 @@
   <div class="copyright">
     <span
       >Copyright © {{ date }}
-      <a href="http://www.szsic.cn" target="_blank">深圳市鹏微软件技术有限公司</a>
+      <a href="http://www.szsic.cn" target="_blank">@copyright Copyright</a>
     </span>
   </div>
 </template>

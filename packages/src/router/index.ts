@@ -55,7 +55,7 @@ export const constantRoutes: RouteOption[] = [
   {
     path: "/401",
     component: () => import("@/views/error/401.vue"),
-    hidden: true
+    hidden: false
   },
   {
     path: "",

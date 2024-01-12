@@ -35,10 +35,10 @@ const needTagsView = computed(() => settingsStore.tagsView);
 const fixedHeader = computed(() => settingsStore.fixedHeader);
 
 const classObj = computed(() => ({
-    hideSidebar: !sidebar.value.opened,
+    // hideSidebar: !sidebar.value.opened,
     openSidebar: sidebar.value.opened,
     withoutAnimation: sidebar.value.withoutAnimation,
-    mobile: device.value === 'mobile'
+    mobile: useAppStore().device === 'mobile'
 }))
 
 const { width } = useWindowSize();
@@ -50,6 +50,7 @@ watchEffect(() => {
     }
     if (width.value - 1 < WIDTH) {
         useAppStore().toggleDevice('mobile')
+        console.log('>>>>useAppStore().device', useAppStore().device);
         useAppStore().closeSideBar({ withoutAnimation: true })
     } else {
         useAppStore().toggleDevice('desktop')

@@ -3,10 +3,9 @@
     <!--面包屑导航-->
     <!--<breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!settingsStore.topNav" />-->
 
-    <!-- <div class="sys-logo">
-      <img src="@/assets/logo/logo.png" />
-      <span class="sys-name">产业项目评审分析系统</span>
-    </div> -->
+    <div class="sys-logo">
+      <span class="sys-name">Fundamental Demo</span>
+    </div>
 
     <div class="right-menu flex align-center">
       <el-dropdown @command="handleCommand" class="avatar-container right-menu-item hover-effect" trigger="click">
@@ -138,7 +137,7 @@ const handleCommand = (command: string) => {
 .navbar {
   height: 50px;
   overflow: hidden;
-  // position: fixed;
+  position: fixed;
   width: 100%;
   top: 0;
   left: 0;
