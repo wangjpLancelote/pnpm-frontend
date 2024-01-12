@@ -4,7 +4,7 @@
     <!--<breadcrumb id="breadcrumb-container" class="breadcrumb-container" v-if="!settingsStore.topNav" />-->
 
     <div class="sys-logo">
-      <span class="sys-name">Fundamental Demo</span>
+      <span class="sys-name text-xl font-bold tracking-tight text-gray-900 sm:text-xl">Fundamental Demo</span>
     </div>
 
     <div class="right-menu flex align-center">
