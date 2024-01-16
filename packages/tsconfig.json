@@ -12,8 +12,17 @@
     "strict": true,
     // 指定JSX代码的处理方式 preserve为保留JSX代码不进行转换，因为通常jsx文件会有其他工具进行转化
     "jsx": "preserve",
-    // 允许导入.ts文件作为模块
+    // 允许导入.ts文件作为模块,确保编译的一致性和确定性
     "allowImportingTsExtensions":true,
+
+    // 仅生成类型声明文件.d.ts
+    // "emitDeclarationOnly": true,
+    
+    // 是否生成类型声明文件，允许其他ts或者js项目在使用时正确获得类型提示
+    // "declaration": true,
+
+    // 仅进行类型检查
+    "noEmit": true,
     // 是否生成源映射文件, 源映射文件可以让代码在浏览器中使用ts代码进行调试
     "sourceMap": true,
     // 是否允许导入JSON文件

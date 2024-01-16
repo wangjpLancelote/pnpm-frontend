@@ -8,7 +8,7 @@
 import useSettingsStore from '@/store/modules/settings'
 import { handleThemeStyle } from '@/utils/theme'
 import { ElMessageBox } from 'element-plus'
-import { webUpdater } from './plugins/webUpdater.js'
+import { webUpdater } from './plugins/webUpdater'
 import useAppStore from './store/modules/app'
 
 const appStore = useAppStore();

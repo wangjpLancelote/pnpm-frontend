@@ -5,8 +5,6 @@ import fs from "fs";
 
 const packageJsonContent = fs.readFileSync("./package.json", "utf-8");
 const packageJson = JSON.parse(packageJsonContent);
-
-// const packageJson = require('./package.json');
 const version = packageJson.version;
 
 export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
@@ -36,7 +34,6 @@ export default defineConfig(({ mode, command }: ConfigEnv): UserConfig => {
         }
       }
     },
-    //fix:error:stdin>:7356:1: warning: "@charset" must be the first rule in the file
     css: {
       postcss: {
         plugins: [
