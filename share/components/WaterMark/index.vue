@@ -5,7 +5,7 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="WaterMark">
 import { ref, computed } from "vue";
 const props = defineProps({
   text: {

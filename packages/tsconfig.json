@@ -1,29 +1,52 @@
 {
   "compilerOptions": {
+    // 指定编译版本 esnext为最新的ECMAScript版本
     "target": "esnext",
+    // 使用ECMAScript中的定义初始化语法来处理类字段
     "useDefineForClassFields": true,
+    // 生成的模块规范 esnext为最新的模块规范和使用特性
     "module": "esnext",
+    // 模块解析策略，node为node.js解析策略,相对路径导入将基于导入文件的位置进行相对路径解析，非相对路径导入将从导入文件的目录开始向上查找node_modules目录，这是为了模拟node 运行时的导入行为
     "moduleResolution": "node",
+    // 严格类型检查
     "strict": true,
+    // 指定JSX代码的处理方式 preserve为保留JSX代码不进行转换，因为通常jsx文件会有其他工具进行转化
     "jsx": "preserve",
+    // 允许导入.ts文件作为模块
     "allowImportingTsExtensions":true,
+    // 是否生成源映射文件, 源映射文件可以让代码在浏览器中使用ts代码进行调试
     "sourceMap": true,
+    // 是否允许导入JSON文件
     "resolveJsonModule": true,
+    // 支持默认导入 支持 import x from xxx 这种写法
     "esModuleInterop": true,
+    // 指定编译时需要包含的库文件 esnext指的是最新的ECMAScript，dom指的是document对象
     "lib": ["esnext", "dom"],
+    // 用于解析非相对模块名的基本目录
     "baseUrl": ".",
+    // 允许编译.js文件
     "allowJs": true,
+    // 跳过对默认库文件(如第三方库)的检查
     "skipDefaultLibCheck": true,
+    // 指定模块名到对应文件或目录的映射，主要是使用@别名
     "paths": {
       "@/*": ["src/*"]
     },
+    // 编译后输出的目录
+    "outDir": "./dist",
+    // 指定要包含的类型声明文件
     "types": ["vite/client"],
+    // 跳过的引入的声明文件的类型检查
     "skipLibCheck": true,
-    // 允许默认导入
+    // 允许默认导入, 指的是不需要导入具体的模块即可，允许非具名导出
     "allowSyntheticDefaultImports": true,
+    // 强制文件名的一致性 真实文件名大小写与导入的文件名大小写要一致
     "forceConsistentCasingInFileNames": true,
+    // 启用对类属性的严格初始化检查，类属性是否需要初始化数据
     "strictPropertyInitialization": false
   },
+  // 指定应该包含在编译中的文件或目录的列表
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/types/**/*.d.ts", "src/components/FormComp/src/form-render.tsx", "src/utils/jsencrypt.js"],
+  // 指定应该排除在编译之外的文件或目录的列表
   "exclude": ["node_modules", "dist", "**/*.js"]
 }
