@@ -182,7 +182,7 @@ touch tsconfig.json
 }
 ```
 
-- 创建/packages/vite.confit.ts
+- 创建/packages/vite.config.ts
 
 ```shell
 touch vite.config.ts
@@ -311,10 +311,10 @@ touch index.html
 - 最后，启动整个项目需要配置对应npm命令
 
 ```shell
-vim pacakge.json
+vim package.json
 ```
 
-进入package.json，添加scripts属性
+进入package.json，添加scripts属性命令
 
 ```json
   "scripts": {
