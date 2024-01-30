@@ -1,16 +1,26 @@
 ## Foundamental Frontend前端项目搭建指引
 
+### 目录
+
+- [搭建项目目录结构](#搭建项目目录结构)
+- [初始化前端项目-packages](#初始化前端项目-packages)
+- [初始化通用组件及函数目录-share](#初始化通用组件及函数目录-share)
+- [代码格式检验及美化可选](#代码格式检验及美化可选)
+- [git-代码提交规范与格式校验可选](#git-代码提交规范与格式校验可选)
+- [使用第三方UI框架](#项目ui框架)
+- [项目目录结构图示](#最终的项目目录图)
+
 #### 搭建项目目录结构
 
 使用 pnpm 包管理器, 此前端项目目录下会有多个package，因此需要引入 monoRepo机制
 
 - 安装Node.js和Npm
 
-<i>Linux安装或者官网下载安装包</i>
-
 ```shell
+Linux安装或者官网下载安装包
 sudo apt-get install nodejs
-或者Mac
+
+Mac环境
 brew install nodejs
 ```
 
@@ -28,7 +38,7 @@ pnpm init
 pnpm install
 ```
 
-此时project目录下会有一个<i><b>package.json</b></i>文件和一个<i><b>pnpm-lock.yaml</b></i>文件
+此时project目录下会存在<i><b>package.json</b></i>文件、<i><b>pnpm-lock.yaml</b></i>文件
 
 - 在当前目录下新建两个目录：packages、share
   - packages：前端项目
@@ -456,7 +466,7 @@ pnpm install lint-staged
 touch lint-staged.config.js
 ```
 
-添加package.json的scripts脚本
+<i>添加package.json的scripts脚本</i>
 
 ```json
 "scripts": {
@@ -589,7 +599,96 @@ module.exports = {
 };
 ```
 
-最终的项目目录如图:
+#### 使用第三方UI框架(可选)
+
+为了更方便快捷的开发web页面，通常会使用一些业界常用的第三方UI库，这些UI库可以适用大部分的场景，可以更加快捷的开发对应的页面功能
+
+- Element-plus
+
+```shell
+cd packages
+pnpm install element-plus @element-plus/icons-vue -S
+```
+
+<i>在项目中注册element-plus</i>
+
+```shell
+cd src
+touch main.ts
+
+** 在main.ts中添加一下内容
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
+import locale from "element-plus/es/locale/lang/zh-cn";
+
+app.use(ElementPlus as any, {
+  locale: locale,
+  // 支持 large、default、small
+  size: Cookies.get("size") || "default"
+});
+**
+
+```
+
+<i>在项目中使用</i>
+
+```ts
+<el-form :model="form" label-width="120px"></el-form>
+import { ElForm } from 'element-plus'
+```
+
+- tailwindCSS
+  tailwindCSS是一个原子化的CSS框架，适用于快速开发UI界面，可以无侵入的在项目中使用
+
+<i>在项目中注册tailwindCSS</i>
+
+```shell
+cd packages
+pnpm install tailwindcss postcss autoprefixer --save-dev
+
+touch tailwind.config.js
+touch postcss.config.js
+```
+
+<i>tailwind.config.js</i>
+
+```ts
+module.exports = {
+  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  // purge: ['./index.html', './src/**/*.{vue,js,ts, jsx,tsx}'],
+  darkMode: false,
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+
+<i>postcss.config.js</i>
+
+```ts
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+```
+
+<i>在项目中使用</i>
+
+```html
+<html>
+  <body>
+    <div class="space-y-6 py-8 text-base leading-7 text-gray-600"></div>
+  </body>
+</html>
+```
+
+#### 最终的项目目录图
 
 ```text
 ├── .husky
@@ -606,6 +705,8 @@ module.exports = {
 |  ├── package.json
 |  ├── package-lock.json
 |  ├── tsconfig.json
+|  ├── tailwindcss.config.js
+|  ├── postcss.config.js
 |  ├── vite.config.ts
 |  └── index.html
 ├── \share
