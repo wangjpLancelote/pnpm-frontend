@@ -100,17 +100,22 @@ npm init vite@latest
 使用上面这种方式会比较快捷的生成模版、成型的目录结构
 <b><i>**下面介绍一下如何手动初始化前端项目**</i></b>
 
-- 手动初始化前端项目（使用vite或者webpack）
+- 手动初始化前端项目（以Vue应用为例子）
 
 ```shell
 cd packages
 
-pnpm install typescript
-pnpm install vue-tsc
 pnpm install vite@latest
 pnpm install vue@latest
 pnpm install vue-router
 pnpm install sass
+```
+
+- 使用typescript进行开发(可选)
+
+```shell
+pnpm install typescript
+pnpm install vue-tsc
 ```
 
 - 创建/packages/tsconfig.json
@@ -119,7 +124,7 @@ pnpm install sass
 touch tsconfig.json
 ```
 
-常用配置如下
+<i>tsconfig常用配置如下</i>
 
 ```json
 {
