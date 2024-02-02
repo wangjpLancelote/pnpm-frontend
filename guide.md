@@ -23,7 +23,7 @@ sudo apt-get install nodejs
 Mac环境
 brew install nodejs
 
-windows环境(官网下载安装包)
+Windows环境(官网下载安装包)
 https://nodejs.org/en
 ```
 
