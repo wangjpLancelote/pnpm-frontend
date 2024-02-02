@@ -3,25 +3,28 @@
 ### 目录
 
 - [搭建项目目录结构](#搭建项目目录结构)
-- [初始化前端项目-packages](#初始化前端项目-packages)
+- [初始化前端应用内容-packages](#初始化前端项目-packages)
 - [初始化通用组件及函数目录-share](#初始化通用组件及函数目录-share)
-- [代码格式检验及美化(可选)](#代码格式检验及美化可选)
-- [git-代码提交规范与格式校验(可选)](#git-代码提交规范与格式校验可选)
+- [代码格式检验及美化插件(可选)](#代码格式检验及美化可选)
+- [git-代码提交规范与格式校验插件(可选)](#git-代码提交规范与格式校验可选)
 - [使用第三方UI框架(可选)](#项目ui框架)
 - [项目目录结构图示](#最终的项目目录图)
 
 #### 搭建项目目录结构
 
-使用 pnpm 包管理器, 此前端项目目录下会有多个package，因此需要引入 monoRepo机制
+monoRepo机制， 巨石应用的目前最优解决方案，最早源自Google的内部工程文化，这里方案使用<b>pnpm</b>包管理器，和npm同源，学习成本低，易于上手
 
-- 安装Node.js和Npm
+- 安装Node.js和Npm(NodeJS的安装包会自动安装npm)
 
 ```shell
-Linux安装或者官网下载安装包
+Linux安装
 sudo apt-get install nodejs
 
 Mac环境
 brew install nodejs
+
+windows环境(官网下载安装包)
+https://nodejs.org/en
 ```
 
 - 安装<b>pnpm</b>
@@ -43,8 +46,11 @@ pnpm install
 - 在当前目录下新建两个目录：packages、share
   - packages：前端项目
   - share：通用的组件以及函数
+  - (xxxModule：可按需增加新的模块)
 
 ```shell
+|- /project
+
 mkdir packages
 mkdir share
 ```
@@ -56,12 +62,19 @@ cd packages && pnpm init
 cd share && pnpm init
 ```
 
-- 这时候两个目录下会有一个文件：/packages/package.json和 /share/package.json
-- 分别在两个package.json下的dependencies中添加对方注册的的name：
+- 这时候两个目录下会有一个文件：
+  - /packages/package.json
+  - /share/package.json
+- 分别在两个package.json下的dependencies中添加对方模块在各自的package.json中注册的的name：
 
 ```json
+在packages/package.json中添加
 "dependencies": {
   "@lib/share": "workspace:*",
+}
+在share/package.json中添加
+"dependencies": {
+  "@lib/packages": "workspace:*",
 }
 ```
 
@@ -78,6 +91,7 @@ import * as share from "@lib/share";
 ```shell
 touch pnpm-workspace.yaml
 内容如下：
+这里填写的目录名称，**表示文件全匹配
 packages:
   - 'packages/**'
   - "share/**"
@@ -112,13 +126,14 @@ pnpm install sass
 ```
 
 - 使用typescript进行开发(可选)
+- 如果引入了typescript，则将文件的.js后缀改成.ts后缀，下面介绍的内容默认已经引入typescript开发，因此均使用.ts后缀名
 
 ```shell
 pnpm install typescript
 pnpm install vue-tsc
 ```
 
-- 创建/packages/tsconfig.json
+- 引入typescript开发需要添加/packages/tsconfig.json
 
 ```shell
 touch tsconfig.json
@@ -197,13 +212,14 @@ touch tsconfig.json
 }
 ```
 
+- <i>使用vite构建项目</i>
 - 创建/packages/vite.config.ts
 
 ```shell
 touch vite.config.ts
 ```
 
-一个简单项目的配置如下
+一个简单项目的vite.config配置如下
 
 ```ts
 import { defineConfig, loadEnv, ConfigEnv, UserConfig } from "vite";
@@ -235,7 +251,7 @@ export default defineConfig(({ mode, command }: ConfigEnv): any => {
 mkdir src
 ```
 
-- 添加项目入口文件：/src/main.ts、Vue的模版文件入口：App.vue
+- 添加两个文件：项目入口文件/src/main.ts、Vue的模版文件入口：App.vue
 
 ```shell
 cd src
@@ -253,6 +269,23 @@ touch App.vue
 </template>
 <script setup lang="ts"></script>
 <style></style>
+```
+
+需要在main.ts初始化整个Vue实例并挂载App.vue
+<i>main.ts</i>
+
+```ts
+import App from "./App.vue";
+import { createApp } from "vue";
+const app = createApp(App);
+
+app.mount("#app");
+```
+
+- 在当前目录下新建一个/packages/index.html文件
+
+```shell
+touch index.html
 ```
 
 - 添加页面路由，新建/pacakges/router并新建一个index.ts文件
@@ -285,27 +318,15 @@ const router = createRouter({
 export default router;
 ```
 
-需要在main.ts初始化整个Vue实例并挂载App.vue
-<i>main.ts</i>
+- main.ts中注册路由实例
 
 ```ts
-import App from "./App.vue";
-import { createApp } from "vue";
 import router from "./router/index";
-const app = createApp(App);
-
 app.use(router);
-
-app.mount("#app");
 ```
 
-- 在当前目录下新建一个/packages/index.html文件
-
-```shell
-touch index.html
-```
-
-<i>index.html</i>
+- 前端项目一定要有一个html文件，用来承载渲染的dom节点，vite项目的index.html文件需要放在根目录下
+  <i>index.html</i>
 
 ```html
 <html>
@@ -356,7 +377,7 @@ npm run build
 
 和packages目录做法基本一样，可根据需要添加对应的依赖
 
-#### 代码格式检验及美化(可选)
+#### 代码格式检验及美化插件(可选)
 
 为了保证提交的代码风格不会有太大的差异，通常会在项目中设置一些代码格式校验
 
@@ -461,7 +482,7 @@ module.exports = {
 touch .prettierignore
 ```
 
-#### git 代码提交规范与格式校验(可选)
+#### git 代码提交规范与格式校验插件(可选)
 
 - lint-staged，对git暂存区的内容进行检查，检查的规则由config配置
 
